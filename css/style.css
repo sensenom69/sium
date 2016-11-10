@@ -1,0 +1,179 @@
+/*generals*/
+body{
+    background: #E5E5E5;
+}
+#barra_menu{
+    background-color: #5264AE;
+}
+#contenedor_principal{
+   margin:59px auto 0px; 
+   *background: rgba(250,250,250,0.7);
+   border:solid 0px #000000;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    min-height: 500px;
+    *width:1250px;
+}
+.barra_filtros div{
+    float:left;
+}
+.nav a.dropdown-toggle{
+    font-size:16px;
+}
+#logo_wesat{
+   font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    color: #ffffff;
+    margin-right: 0px;
+    line-height: 0px;
+}
+a{
+    cursor: pointer;
+}
+a.lletra_alfabeto{
+    margin-right:10px;
+    text-transform: uppercase;
+}
+/*****************utilitats******************/
+.error{
+    color: red;
+}
+.contenedor_boto_nou{
+    background: #E33B72;
+    border-radius: 50%;
+    box-shadow: 0px 4px 5px rgba(0,0,0,0.3);
+}
+.contenedor_boto_nou:hover{
+    background: #f91B72;
+    
+}
+/*
+.contenedor_boto_nou img{
+    border:0px solid;
+    border-radius: 50%;
+    box-shadow: 0px 4px 5px rgba(0,0,0,0.3);
+}
+*/
+
+/********************************************/
+/******************salo**********************/
+#mapa_salo{
+  /*
+  width: 600px;
+  height: 500px;
+  */
+  width: 800px;
+  height: 550px;
+  *border: 1px solid #ccc;
+  overflow: auto;
+  float: left;
+  position:  relative;
+  *background: url('../img/salons/gran.png') no-repeat;
+  *background-size: 700px 550px;
+}
+/*******************************************/
+/*****************taules******************/
+.arrastable{
+  position: absolute;
+  /*top: 10px;
+  left: 20px;
+  float:left;
+  padding: 7px;*/
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+a.botonera_mesa :hover{
+
+}
+/*color de la mesa*/
+.ui-draggable{
+    background-repeat: no-repeat;
+  /*background: #feb;*/
+}
+/*color de la mesa quan es arrastra*/
+.ui-draggable-dragging{
+  /*background: #def;*/
+}
+/**************taules*^************/
+div.mesa_redona_8{
+    *background: url('../img/mesa_redona_8.png') 5px 5px no-repeat ;
+    *width:55px;
+    *height:45px;
+}
+div.mesa_redona_10{
+    *background: url('../img/mesa_redona_10.png') 5px 5px no-repeat ;
+    *width:50px;
+    *height:50px;
+}
+div.mesa_redona_12{
+    *background: url('../img/mesa_redona_12.png') 5px 5px no-repeat ;
+    *width:60px;
+    *height:60px;
+}
+div.mesa_llarga_14{
+    *background: url('../img/mesa_llarga_14.png') 5px 10px no-repeat ;
+    *width:80px;
+    *height:60px;
+}
+div.mesa_llarga_20{
+    *background: url('../img/mesa_llarga_20.png') 5px 10px no-repeat ;
+    *width:80px;
+    *height:60px;
+}
+div.mesa_presidencial{
+    background: url('../img/mesa_presidencial.png') 5px 10px no-repeat ;
+    width:80px;
+    height:50px;
+}
+.nombre_mesa{
+    color: #020A0A;
+    text-align: left;
+}
+.visor_capacidad {
+    color:#020A0A;
+}
+/********************************************/
+/*****************Llistat invitados mesa****/
+tr.listado_invitado{
+height:5px;    
+}
+
+/********************************************/
+/***************Barra de filtros*************/
+#barra_filtros{
+    margin: 10px auto;
+    padding: 10px;
+    width:1250px;
+}
+/*******************************************/
+/**************Llistat de events************/
+.organizador{
+    float:left;
+    width:300px;
+    margin: 0 30px 20px;
+}
+
+
+//modal
+.dialogdemoBasicUsage #popupContainer {
+  position: relative; }
+
+.dialogdemoBasicUsage .footer {
+  width: 100%;
+  text-align: center;
+  margin-left: 20px; }
+
+.dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
+  font-size: 0.8em;
+  margin-top: 50px; }
+
+.dialogdemoBasicUsage button {
+  width: 200px; }
+
+.dialogdemoBasicUsage div#status {
+  color: #c60008; }
+
+.dialogdemoBasicUsage .dialog-demo-prerendered md-checkbox {
+  margin-bottom: 0; }

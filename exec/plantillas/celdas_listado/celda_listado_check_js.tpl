@@ -1,0 +1,1 @@
+<td class="" id="celda_##nom_mostrar##-##id##" ><input onchange="javascript:##codiJavascript##;if($(this).is(':checked')){ $('#modal_no_asistira').modal('show');identificador =##id##;}else{principal.cambioAsistencia(##id##,$(this).is(':checked'));} " type="checkbox" id="##nom_mostrar##" name="##nom_mostrar##_##id##" ####nom_mostrar#### ></td>

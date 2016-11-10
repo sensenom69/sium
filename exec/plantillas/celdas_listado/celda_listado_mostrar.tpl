@@ -1,0 +1,1 @@
+<td class="listado_##tabla##" id="celda_##nom_mostrar##-##id##">####nom_mostrar####</td>  
