@@ -7,14 +7,13 @@
   <meta name="description" content="Material Lite Angular Admin Theme">
   <meta name="author" content="Theme Guys - The Netherlands">
 
-  <title>Material Lite - shared on themelock.com</title>
+  <title>SIUM</title>
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- build:css css/vendors.min.css -->
   <link href="css/principal/select.css" rel="stylesheet" />
   <link href="css/principal/select2.css" rel="stylesheet"><!-- Required by angular-ui-select -->
-
   <link href="bower_components/ng-wig/dist/css/ng-wig.css" rel="stylesheet" /><!-- Text editor -->
   <link href="bower_components/ng-table/dist/ng-table.css" rel="stylesheet" />
   <link href="bower_components/pikaday/css/pikaday.css" rel="stylesheet" />
@@ -26,9 +25,7 @@
   <link href="css/material-lite-demo.css" rel="stylesheet">
   <link href="css/helpers.css" rel="stylesheet">
   <!-- endbuild -->
-
-  <!--meues -->
-  <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
+   <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
 
 
   <!-- IE Compatibility shims -->
@@ -48,20 +45,7 @@
 <body ng-controller="MainController">
   <div id="app" class="app" ng-include="'plantillas/app.html'"></div>
 
-  <!--@grep release:s-->
-  <script>
-      /*
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-62479268-2', 'auto');
-    ga('send', 'pageview');
-    */
-  </script>
-  <!--@grep release:e-->
-
-  <!-- build:js js/vendors.min.js -->
+ 
   <script charset="utf-8" src="bower_components/material-design-lite/material.js"></script>
 
   <script charset="utf-8" src="bower_components/angular/angular.js"></script>
@@ -73,6 +57,7 @@
 
   <script charset="utf-8" src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script><!-- Required by todo module -->
 
+  <script charset="utf-8" src="bower_components/lodash/lodash.js"></script><!-- Required by angular google maps -->
   <script charset="utf-8" src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script><!-- Required by angular google maps -->
   <script charset="utf-8" src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
 
@@ -119,14 +104,31 @@
 
   <script charset="utf-8" src="js/demo/controllers/charts.js"></script>
 
-<!--meues-->
+  <!-- <script charset="utf-8" src="js/demo/controllers/tables-data.js"></script>-->
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <!-- Angular Material Library -->
+  <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
+  <!--<script charset="utf-8" src="bower_components/angular-messages/angular-messages.js"></script>
+  <script charset="utf-8" src="bower_components/angular-animate/angular-animate.js"></script>
+  <script charset="utf-8" src="bower_components/angular-aria/angular-aria.js"></script>
+  <script charset="utf-8" src="bower_components/angular-material/angular-material.js"></script>-->
   <script charset="utf-8" src="js/controllers/tables-data.js"></script>
   <script charset="utf-8" src="js/controllers/sidebar.js"></script>
-  <script charset="utf-8" src="js/controllers/agrupacions.js"></script>
-  <script charset="utf-8" src="js/controllers/familia.js"></script>
-  <script charset="utf-8" src="js/controllers/instruments.js"></script>
-  <script charset="utf-8" src="js/controllers/nou_usuari.js"></script>
-  <script charset="utf-8" src="js/controllers/editar_usuari.js"></script>
+    <script charset="utf-8" src="js/controllers/agrupacions.js"></script>
+    <script charset="utf-8" src="js/controllers/familia.js"></script>
+    <script charset="utf-8" src="js/controllers/instruments.js"></script>
+    <script charset="utf-8" src="js/controllers/nou_usuari.js"></script>
+    <script charset="utf-8" src="js/controllers/editar_usuari.js"></script>
+    
+
+
 
   <script charset="utf-8" src="js/demo/directives/dynamic-color.js"></script>
   <script charset="utf-8" src="js/demo/directives/header.js"></script>
@@ -141,4 +143,5 @@
   <!-- endbuild -->
   <!--<script src="//localhost:35729/livereload.js"></script>--><!--@grep demo--><!--@grep release-->
 </body>
+
 </html>

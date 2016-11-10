@@ -4,11 +4,11 @@
 
   angular
     .module('material-lite')
-    //.controller('TablaUsuari', ['$scope', '$http', 'PlaceholderTextService', 'ngTableParams', '$filter','$window','$mdDialog', TablaUsuari]);
-    .controller('TablaUsuari', ['$scope', '$http', 'PlaceholderTextService', 'ngTableParams', '$filter','$window', TablaUsuari]);
+    .controller('TablaUsuari', ['$scope', '$http', 'PlaceholderTextService', 'ngTableParams', '$filter','$window','$mdDialog', TablaUsuari]);
+    
 
-  function TablaUsuari($scope, $http, PlaceholderTextService, ngTableParams, $filter,$window) {
-    /*
+  function TablaUsuari($scope, $http, PlaceholderTextService, ngTableParams, $filter,$window,$mdDialog) {
+    
     //el modal
     $scope.status = '  ';
     $scope.customFullscreen = false;
@@ -45,7 +45,7 @@
       };
     }
     //fins aci el modal
-    */
+    
     var url = "secciones/usuaris/llistat.php";
     var usuaris = [];
     

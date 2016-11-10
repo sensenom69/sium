@@ -27,8 +27,8 @@
 
     'angularGrid',
     'LocalStorageModule', // Required by todo module
-    //'ngMaterial',//per al modal
-    //'ngMessages', //per al modal
-    //'material.svgAssetsCache',//per al modal
+    'ngMaterial',//per al modal
+    'ngMessages', //per al modal
+    'material.svgAssetsCache',//per al modal
   ]);
 })();
