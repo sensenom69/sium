@@ -64,9 +64,6 @@
         });
         
     };
-
-    
-    
   }
 
   
@@ -104,29 +101,74 @@
 
 })();
 
+
+
 (function() {
   'use strict';
 
   angular
     .module('material-lite')
-    .controller('TablaAgrupacio', ['$scope', '$http', 'PlaceholderTextService', 'ngTableParams', '$filter', TablaAgrupacio]);
+    .controller('TablaAgrupacio', ['$scope', '$http', 'PlaceholderTextService', 'ngTableParams', '$filter','$window','$mdDialog', TablaAgrupacio]);
 
-  function TablaAgrupacio($scope, $http, PlaceholderTextService, ngTableParams, $filter) {
-    var url = "secciones/agrupacio/llistat.php";
-    var agrupacio = [];
-    var agraupcio_select = {};
+  function TablaAgrupacio($scope, $http, PlaceholderTextService, ngTableParams, $filter,$window,$mdDialog) {
+    var tabla = "agrupacio";
+    //el modal
+    $scope.status = '  ';
+    $scope.customFullscreen = false;
+
+    $scope.showConfirm = function(ev,identificador) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+            .title('Esta segur de voler borrar?')
+            .textContent('Esta acció no es pot desfer!')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('SI!')
+            .cancel('No per favor!');
+
+      $mdDialog.show(confirm).then(function() {
+        del(identificador);
+
+      }, function() {
+        
+      });
+    };
+  
+    function DialogController($scope, $mdDialog) {
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+      };
+    }
+    //fins aci el modal
+    var url = "secciones/"+tabla+"/llistat.php";
+    var item_llistar = [];
     
     $http.post(url,{})
       .then(function(resposta){
         console.log("res:", resposta.data);
-        agrupacio = resposta.data;
-        $scope.agrupacio = agrupacio;
-        refrescaTabla($scope,$filter, ngTableParams, agrupacio);
+        item_llistar = resposta.data;
+        $scope.item_llistar = item_llistar;
+        refrescaTabla($scope,$filter, ngTableParams, item_llistar);
       });
     
+     function del(identificador){
+        $http.post("secciones/"+tabla+"/borrar.php",{id: identificador})
+        .then(function(resposta){
+            $window.location.reload(true);
+        });
+        
+    };
   }
   
-  function refrescaTabla($scope,$filter,ngTableParams, agrupacio){
+  function refrescaTabla($scope,$filter,ngTableParams, item_llistar){
     $scope.tableParams = new ngTableParams({
       page: 1,            // show first page
       count: 10,
@@ -135,7 +177,7 @@
       }
     }, {
       filterDelay: 50,
-      total: agrupacio.length, // length of agrupacio
+      total: item_llistar.length, // length of agrupacio
       getData: function ($defer, params) {
         var searchStr = params.filter().search;
         var mydata = [];
@@ -143,16 +185,15 @@
         if (searchStr) {
 
           searchStr = searchStr.toLowerCase();
-          mydata = agrupacio.filter(function (item) {
+          mydata = item_llistar.filter(function (item) {
             return item.nom.toLowerCase().indexOf(searchStr) > -1 ;
           });
 
         } else {
-          mydata = agrupacio;
+          mydata = item_llistar;
         }
         mydata = params.sorting() ? $filter('orderBy')(mydata, params.orderBy()) : mydata;
         $defer.resolve(mydata.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-
         
       }
     });

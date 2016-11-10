@@ -1,8 +1,8 @@
 
 <section ng-controller="TablaAgrupacio" class="tables-data">
-  <div class="mdl-color--blue-grey ml-header relative clear">
+  <div class="mdl-color--blue-grey ml-header relative clear" style="min-height: 120px;">
     <div class="p-20">
-      <div class="mdl-textfield mdl-js-textfield">
+      <div class="mdl-textfield mdl-js-textfield" style="padding-top: 0px;">
           <input type="text" ng-model="tableParams.filter()['search']" class="mdl-textfield__input" placeholder="Buscar nom" autofocus />
        </div>
     </div>
@@ -15,14 +15,19 @@
 
         <div class="mdl-card mdl-shadow--1dp m-b-30">
           <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">{{agrupacio.length}} agrupacions</h2>
+            <h2 class="mdl-card__title-text">{{item_llistar.length}} agrupacions</h2>
           </div>
-
 
           <table ng-table="tableParams" template-pagination="custom/pager" class="table mdl-data-table fullwidth">
             <tr ng-repeat="item in $data">
               <td width="50" ng-bind-html="item.id">{{item.id}}</td>
               <td class="text-left" data-title="'nom'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.nom}}</td>
+              <td data-title="'accions'" style="width:110px;">
+                <div class="icons">
+                  <a href="#/agrupacio/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
+                  <a ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
+                </div>
+              </td>
             </tr>
           </table>
 

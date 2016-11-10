@@ -125,8 +125,9 @@
     <script charset="utf-8" src="js/controllers/familia.js"></script>
     <script charset="utf-8" src="js/controllers/instruments.js"></script>
     <script charset="utf-8" src="js/controllers/nou_usuari.js"></script>
+    <script charset="utf-8" src="js/controllers/nou_agrupacio.js"></script>
     <script charset="utf-8" src="js/controllers/editar_usuari.js"></script>
-    
+    <script charset="utf-8" src="js/controllers/editar_agrupacio.js"></script>
 
 
 
