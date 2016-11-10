@@ -5,7 +5,8 @@ if(isset($_POST['id_familia'])){
 	$llistat_instrument = $familia->cargaRelacion("instrument");
 }else{
 	$llistat_instrument = new Modelo("instrument");
-	$llistat_instrument->cargaRelacion("instrument");
+	//$llistat_instrument->cargaRelacion("instrument");
+	$llistat_instrument->cargaRelacionConDatos("instrument");
 }
 
 
