@@ -14,14 +14,14 @@
             <form name="formulari" ng-class="nou_item.clase" novalidate>
               <div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase" style="max-width: 35px;float:left;">
-                    <input ng-model="nou_item.hora" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" id="hora" ng-required="true"/>
+                    <input ng-model="nou_item.hora" class="mdl-textfield__input" ng-class="nou_item.clase" type="number" id="hora" ng-required="true"/>
                     <label class="mdl-textfield__label" for="hora">Hora</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase" style="max-width: 15px;float:left; margin-left:5px;">
                   :
                 </div>
                 <div class="mdl-textfield mdl-js-textfield" ng-class="nou_item.clase" style="max-width: 35px;float:left; margin-left:5px;">
-                  <input ng-model="nou_item.minuts" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" id="minuts" ng-required="true"/>
+                  <input ng-model="nou_item.minuts" class="mdl-textfield__input" ng-class="nou_item.clase" type="number" id="minuts" ng-required="true"/>
                  <label class="mdl-textfield__label" for="minuts">Minuts</label>
                </div>
                <div class="mdl-textfield mdl-js-textfield" ng-class="nou_item.clase" style="width:87%;float:left; margin-left:5px;">
@@ -40,7 +40,7 @@
               <div style="clear:both;"></div>
              
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase">
-                <input ng-model="nou_item.lloc" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" id="lloc" ng-required="true"/>
+                <input ng-model="nou_item.lloc" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" id="lloc" pattern="[A-Za-z0-9]{2,64}" ng-required="true"/>
                 <label class="mdl-textfield__label" for="nom">Lloc</label>
                 <span class="mdl-textfield__error">Per favor introduix un nom vàlid.</span>
               </div>
