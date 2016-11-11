@@ -1,0 +1,72 @@
+<section class="text-fields">
+  <div class="mdl-color--amber ml-header relative clear">
+    <div class="p-20">
+    </div>
+  </div>
+
+    <div ng-controller="EditarConcert" class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
+      <div class="p-20 ml-card-holder">
+        <div class="mdl-card mdl-shadow--1dp">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Editar concert</h2>
+          </div>
+          <div class="p-30" >
+            <form name="formulari" ng-class="nou_item.clase" novalidate>
+              <div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase" style="max-width: 35px;float:left;">
+                    <input ng-model="nou_item.hora" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" id="hora" ng-required="true"/>
+                    <label class="mdl-textfield__label" for="hora">Hora</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase" style="max-width: 15px;float:left; margin-left:5px;">
+                  :
+                </div>
+                <div class="mdl-textfield mdl-js-textfield" ng-class="nou_item.clase" style="max-width: 35px;float:left; margin-left:5px;">
+                  <input ng-model="nou_item.minuts" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" id="minuts" ng-required="true"/>
+                 <label class="mdl-textfield__label" for="minuts">Minuts</label>
+               </div>
+               <div class="mdl-textfield mdl-js-textfield" ng-class="nou_item.clase" style="width:87%;float:left; margin-left:5px;">
+                <input firstDay="2" ng-model="nou_item.data" class="mdl-textfield__input"
+                       type="text"
+                       id="datepicker2"
+                       pikaday="datepicker2"
+                       format="DD-MM-YYYY"
+                       on-select="onPikadaySelect(pikaday, date)"
+                       theme="material-lite" ng-required="true"/>
+                <label class="mdl-textfield__label" for="datepicker2">Selecciona una data</label>
+                
+              </div>
+              </div>
+
+              <div style="clear:both;"></div>
+             
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase">
+                <input ng-model="nou_item.lloc" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" id="lloc" ng-required="true"/>
+                <label class="mdl-textfield__label" for="nom">Lloc</label>
+                <span class="mdl-textfield__error">Per favor introduix un nom vàlid.</span>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase">
+                <input ng-model="nou_item.preu" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" id="preu" />
+                <label class="mdl-textfield__label" for="nom">Preu</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield" style="margin-top: 40px;">
+                <button ng-multiple="false" ngf-select ng-model="nou_item.programa" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                  Pujar programa
+                </button>
+                
+              </div>
+              <div  class="m-t-20">
+                <button type="submit" ng-disabled="formulari.$invalid" ng-click="add()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                  Guardar
+                </button>
+                <button ng-click="cancel()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>  
+</section>

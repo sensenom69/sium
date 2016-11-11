@@ -160,7 +160,7 @@ class Modelo{
         $sql .= (($obj->tabla == $this->tabla AND $condicions=="")? " " : " WHERE ")."
             ".($obj->tabla == $this->tabla? " ".$condicions : ($tabla.".id_".$this->tabla." = '".addslashes($this->datos['id'])."' ".$condicions));
         //$sql .=(($obj->tabla == $this->tabla AND $condicions=="")? "":$identifi);
-            $sql .=(($condicions=="")? " WHERE ": " AND ").$identifi;
+            //$sql .=(($condicions=="")? " WHERE ": " AND ").$identifi; //////////////////////////////////Acabe de llevar esta per que fallava en el concert
         $sql .= (($variable=="")?"":"ORDER BY ".$obj->tabla.".`".$variable."` ".($orden==""?"DESC":$orden))." 
             ".(($desde==0 AND $quants==0)? "" :"LIMIT ".$desde.",".$quants)." ";
         //print $sql."<br>";
@@ -248,7 +248,7 @@ class Modelo{
                 $cadenes['noms'] .= "`".$key."`,"; 
                 $string = "'";
                 switch($key){
-                    case "data": $string.= ($val!=0? "0":time())."',";break;
+                    //case "data": $string.= ($val!=0? "0":time())."',";break;
                     case "fecha":$string.= addslashes(classUtilidades::tornaIntFecha($val))."',";break;
                     default: $string.= addslashes($val)."',";
                 }
@@ -256,10 +256,12 @@ class Modelo{
                 //$cadenes['valors'] .= "'".($cadenes['valors']!="data"? addslashes($val):($val!=0? "0":time()))."',"; 
             }  
         }
+        /*
         if(!in_array('data',$dades) AND in_array('data',$this->camps)){
             $cadenes['noms'] .= "data,";  
             $cadenes['valors'] .= time();
         }
+        */
         $cadenes['noms'] = substr($cadenes['noms'],0,-1);
         $cadenes['valors'] = substr($cadenes['valors'],0,-1);
         return $cadenes;

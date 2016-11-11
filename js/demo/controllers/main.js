@@ -17,3 +17,12 @@
   }
 
 })();
+
+
+angular.module('material-lite')
+  .config(['pikadayConfigProvider', function(pikaday) {
+    pikaday.setConfig({
+      numberOfMonths: 2,
+      firstDay:1
+    });
+  }])
