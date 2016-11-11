@@ -22,10 +22,12 @@
             <tr ng-repeat="item in $data">
               <td width="50" ng-bind-html="item.id">{{item.id}}</td>
               <td class="text-left" data-title="'nom'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.nom}}</td>
-              <td class="text-left" data-title="'familia'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.familia}}</td>
+              <td class="text-left" data-title="'compositor'" filter="{ 'compositor': 'text' }" sortable="'compositor'">{{item.compositor}}</td>
+              <td class="text-left" data-title="'etiquetes'" filter="{ 'etiquetes': 'text' }" sortable="'etiquetes'">{{item.etiquetes}}</td>
+              <td class="text-left" data-title="'agrupacio'" filter="{ 'agrupacio': 'text' }" sortable="'agrupacio'">{{item.agrupacio}}</td>
               <td data-title="'accions'" style="width:110px;">
                 <div class="icons">
-                  <a href="#/instrument/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
+                  <a href="#/obra/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
                   <a ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
                 </div>
               </td>

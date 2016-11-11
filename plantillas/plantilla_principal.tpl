@@ -126,10 +126,12 @@
     <script charset="utf-8" src="js/controllers/nou_agrupacio.js"></script>
     <script charset="utf-8" src="js/controllers/nou_familia.js"></script>
     <script charset="utf-8" src="js/controllers/nou_instrument.js"></script>
+    <script charset="utf-8" src="js/controllers/nou_obra.js"></script>
     <script charset="utf-8" src="js/controllers/editar_usuari.js"></script>
     <script charset="utf-8" src="js/controllers/editar_agrupacio.js"></script>
     <script charset="utf-8" src="js/controllers/editar_familia.js"></script>
     <script charset="utf-8" src="js/controllers/editar_instrument.js"></script>
+    <script charset="utf-8" src="js/controllers/editar_obra.js"></script>
     <script charset="utf-8" src="js/controllers/permis.js"></script>
     <script charset="utf-8" src="js/controllers/agrupacions.js"></script>
     <script charset="utf-8" src="js/controllers/familia.js"></script>

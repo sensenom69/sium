@@ -479,10 +479,9 @@
         var mydata = [];
 
         if (searchStr) {
-
           searchStr = searchStr.toLowerCase();
           mydata = item_llistar.filter(function (item) {
-            return item.nom.toLowerCase().indexOf(searchStr) > -1 ;
+            return item.nom.toLowerCase().indexOf(searchStr) > -1 || item.compositor.toLowerCase().indexOf(searchStr) > -1 || item.etiquetes.toLowerCase().indexOf(searchStr) > -1 || item.agrupacio.toLowerCase().indexOf(searchStr) > -1 ;
           });
 
         } else {
