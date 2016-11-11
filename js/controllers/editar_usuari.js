@@ -22,6 +22,9 @@
         aux  = $scope.nou_usuari.instrument;
         $scope.nou_usuari.instrument = [];
         $scope.nou_usuari.instrument.nom= aux;
+        aux  = $scope.nou_usuari.permis;
+        $scope.nou_usuari.permis = [];
+        $scope.nou_usuari.permis.nom= aux;
       });
 
 
@@ -30,6 +33,7 @@
     
       $scope.nou_usuari.id_instrument = $scope.nou_usuari.instrument.id;
       $scope.nou_usuari.id_agrupacio = $scope.nou_usuari.agrupacio.id;
+      $scope.nou_usuari.id_permis = $scope.nou_usuari.permis.id;
       $http.post(url,angular.toJson($scope.nou_usuari))
         .then(function(resposta){
           $window.location.href = '#/usuaris/llistat';

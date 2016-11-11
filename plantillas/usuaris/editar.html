@@ -55,6 +55,17 @@
                   </ui-select-choices>
                 </ui-select>
               </div>
+               <div ng-controller="SelectPermis" ng-model="$parent.nou_usuari.permis" >
+                <ui-select  theme="select2" ng-disabled="disabled" title="Choose a permis"  search-enabled="false">
+                  <ui-select-match placeholder="Selecciona un permis">{{$parent.nou_usuari.permis.nom}}</ui-select-match>
+                  <ui-select-choices repeat="item in items | filter: $select.search">
+                    <div ng-bind-html="item_select.nom | highlight: $select.search"></div>
+                    <small>
+                      {{item.nom}}
+                    </small>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
               <div  class="m-t-20">
                 <button type="submit" ng-disabled="usuariForm.$invalid" ng-click="addUsuari()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                   Guardar
