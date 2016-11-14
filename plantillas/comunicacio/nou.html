@@ -1,17 +1,30 @@
-<section class="text-fields">
-  <div class="mdl-color--amber ml-header relative clear">
-    <div class="p-20">
-    </div>
+<section class="text-fields" ng-controller="NouComunicacio">
+  <form name="formulari" novalidate>
+  <div class="mdl-color--amber ml-header relative clear" >
+    <diV class="contenedor_scroll" style="float:left;overflow: scroll;max-height:213px;margin-left:50px;" >
+     <div ng-repeat="item in item_llistar_agrupacio" >
+       <div ng-style="display=inline;"><input type="checkbox" id="checkbox_agrupacio-{{item.id}}" class="mdl-checkbox__input" /><label>{{item.nom}}</label></div>
+     </div>
+    </diV>
+    <diV class="contenedor_scroll" style="float:left;overflow: scroll;max-height:213px; margin-left:50px;" >
+     <div ng-repeat="item in item_llistar_familia" >
+       <div ng-style="display=inline;"><input type="checkbox" id="checkbox_familia-{{item.id}}" class="mdl-checkbox__input" /><label>{{item.nom}}</label></div>
+     </div>
+    </diV>
+    <diV class="contenedor_scroll" style="float:left;overflow: scroll;max-height:213px; margin-left:50px;" >
+     <div ng-repeat="item in item_llistar_instrument" >
+       <div ng-style="display=inline;"><input type="checkbox" id="checkbox_instrument-{{item.id}}" class="mdl-checkbox__input" /><label>{{item.nom}}</label></div>
+     </div>
+    </diV>
   </div>
-
-    <div ng-controller="NouComunicacio" class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
+    <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
       <div class="p-20 ml-card-holder">
         <div class="mdl-card mdl-shadow--1dp">
           <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Nova comunicació</h2>
           </div>
           <div class="p-30" >
-            <form name="formulari" novalidate>
+            
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input ng-model="nou_item.assumpte" class="mdl-textfield__input" type="text" 
                 pattern="[a-z0-9A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" id="assumpte" ng-required="true"/>
@@ -29,11 +42,11 @@
                   Cancelar
                 </button>
               </div>
-            </form>
+            
           </div>
         </div>
       </div>
     </div>
-
   </div>  
+  </form>
 </section>

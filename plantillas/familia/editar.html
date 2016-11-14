@@ -13,7 +13,7 @@
           <div class="p-30" >
             <form name="formulari" ng-class="nou_item.clase" novalidate>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label " ng-class="nou_item.clase">
-                <input ng-model="nou_item.nom"  ng-dirty="true" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" pattern="[A-Za-z0-9]{2,64}" id="nom" ng-required="true"/>
+                <input ng-model="nou_item.nom"  ng-dirty="true" class="mdl-textfield__input" ng-class="nou_item.clase" type="text" pattern="[a-z0-9A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" id="nom" ng-required="true"/>
                 <label class="mdl-textfield__label" for="nom">Nom</label>
                 <span  class="mdl-textfield__error">Per favor introduix un nom vàlid.</span>
               </div>

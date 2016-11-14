@@ -9,8 +9,34 @@
     var tabla = "comunicacio";
     var url = "secciones/"+tabla+"/nou.php";
     var nou_item = [];
-    nou_item.assumpte
-    nou_item.comunicacio
+    nou_item.assumpte;
+    nou_item.comunicacio;
+    //traure agrupacions
+    var item_llistar = [];
+    
+    $http.post("secciones/agrupacio/llistat.php",{})
+      .then(function(resposta){
+        console.log("res:", resposta.data);
+        item_llistar = resposta.data;
+        $scope.item_llistar_agrupacio = item_llistar;
+        //refrescaTabla($scope,$filter, ngTableParams, item_llistar);
+      });
+
+    $http.post("secciones/familia/llistat.php",{})
+      .then(function(resposta){
+        console.log("res:", resposta.data);
+        item_llistar = resposta.data;
+        $scope.item_llistar_familia = item_llistar;
+        //refrescaTabla($scope,$filter, ngTableParams, item_llistar);
+      });
+
+     $http.post("secciones/instrument/llistat.php",{})
+      .then(function(resposta){
+        console.log("res:", resposta.data);
+        item_llistar = resposta.data;
+        $scope.item_llistar_instrument = item_llistar;
+        //refrescaTabla($scope,$filter, ngTableParams, item_llistar);
+      });
 
     $scope.add = function(){
       $scope.nou_item.id = -1;

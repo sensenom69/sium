@@ -177,3 +177,11 @@ height:5px;
 
 .dialogdemoBasicUsage .dialog-demo-prerendered md-checkbox {
   margin-bottom: 0; }
+
+  /*********************/
+  .contenedor_scroll{
+    float:left;
+    overflow: scroll;
+    max-height:213px;
+    margin-left: :50px;
+  }
