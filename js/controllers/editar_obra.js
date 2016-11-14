@@ -6,6 +6,7 @@
     .controller('EditarObra', ['$scope', '$http', '$window', '$location', EditarObra]);
 
   function EditarObra($scope, $http, $window, $location) {
+    var id_obra = $location.search().id;
     var tabla= "obra";
     $scope.nou_item = [];
     
@@ -33,9 +34,13 @@
         });
     }
 
-    $scope.cance = function(){
+    $scope.cancel = function(){
       $window.location.href = "#/"+tabla+"/llistat";
     }
+
+    $scope.editarParticheles = function(){
+      $window.location.href = "#/obra/editar_particheles?id="+id_obra;
+    }    
 
   }
 

@@ -1,0 +1,90 @@
+<section class="text-fields" ng-controller="EditarParticheles" >
+  <div class="mdl-color--amber ml-header relative clear" style="min-height: 120px;">
+    <div class="p-20">
+    </div>
+  </div>
+
+    <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l" style="margin-top:-109px;">
+      <div class="p-20 ml-card-holder">
+        <div class="mdl-card mdl-shadow--1dp">
+          <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Editar Particheles de &nbsp;<b>{{obra.nom}}</b></h2>
+          </div>
+          <div class="p-30" >
+            <form name="formulari" ng-class="nou_item.clase" novalidate>
+              <div ng-controller="SelectInstrument" ng-model="$parent.nou_item.instrument" >
+                <ui-select  theme="select2" id="select_instrument" title="Choose a person" search-enabled="true" ng-required="true">
+                  <ui-select-match placeholder="Selecciona una instrument">{{$parent.nou_item.instrument.nom}}</ui-select-match>
+                  <ui-select-choices repeat="item in instrument | filter: $select.search">
+                    <div ng-bind-html="instrument_select.nom | highlight: $select.search"></div>
+                    <small>
+                      {{item.nom}}
+                    </small>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase">
+                <input ng-model="nou_item.nom" class="mdl-textfield__input" type="text" pattern="[a-z0-9A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" id="nom" ng-required="true"/>
+                <label class="mdl-textfield__label" for="nom">Nom</label>
+                <span class="mdl-textfield__error">Per favor introduix un nom vàlid.</span>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield" style="margin-top: 40px;">
+                <button ng-multiple="false" ngf-select ng-model="nou_item.partitura" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                  Pujar Partichela
+                </button>
+              </div>
+              <div  class="m-t-20">
+                <button type="submit" ng-disabled="formulari.$invalid" ng-click="add()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                  Guardar
+                </button>
+                <button ng-click="cancel()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  <div >
+    <div class="mdl-color--blue-grey ml-header relative clear" style="min-height: 120px;">
+      <div class="p-20">
+        <div class="mdl-textfield mdl-js-textfield" style="padding-top: 0px;">
+            <input type="text" ng-model="tableParams.filter()['search']" class="mdl-textfield__input" placeholder="Buscar instrument" autofocus />
+         </div>
+      </div>
+    </div>
+
+    <div class="mdl-grid mdl-grid--no-spacing">
+
+      <div class="mdl-cell mdl-cell--9-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <div class="p-20 ml-card-holder ml-card-holder-first">
+
+          <div class="mdl-card mdl-shadow--1dp m-b-30">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">{{item_llistar.length}} particheles</h2>
+            </div>
+            <table ng-table="tableParams" template-pagination="custom/pager" class="table mdl-data-table fullwidth">
+              <tr ng-repeat="item in $data">
+                <td width="50" ng-bind-html="item.id">{{item.id}}</td>
+                <td class="text-left" data-title="'nom'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.nom}}</td>
+              
+                <td data-title="'accions'" style="width:110px;">
+                  <div class="icons">
+                    <a href="#/instrument/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
+                    <a ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

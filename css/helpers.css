@@ -149,7 +149,7 @@
 .no-p-t { padding-top: 0px; }
 .no-p-r { padding-right: 0px; }
 .no-p-b { padding-bottom: 0px; }
-.no-p-l { padding-left: 0px; }
+.no-p-l { padding-left: 0px; margin-top: -120px;}
 .no-p-v { padding: 0px 0; }
 .no-p-h { padding: 0 0px; }
 

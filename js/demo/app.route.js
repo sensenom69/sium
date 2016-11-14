@@ -21,7 +21,7 @@
       templateUrl: function(attr){
         return 'plantillas/' + attr.folder + '/' + attr.tpl + '.html';
       }
-
+      
     }).when('/:tpl', {
       templateUrl: function(attr){
         return 'plantillas/' + attr.tpl + '.php';

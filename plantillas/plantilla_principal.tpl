@@ -136,6 +136,7 @@
     <script charset="utf-8" src="js/controllers/editar_obra.js"></script>
     <script charset="utf-8" src="js/controllers/editar_concert.js"></script>
     <script charset="utf-8" src="js/controllers/editar_comunicacio.js"></script>
+    <script charset="utf-8" src="js/controllers/editar_particheles.js"></script>
     <script charset="utf-8" src="js/controllers/permis.js"></script>
     <script charset="utf-8" src="js/controllers/agrupacions.js"></script>
     <script charset="utf-8" src="js/controllers/familia.js"></script>
