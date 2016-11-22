@@ -14,7 +14,13 @@
 
           <div class="mdl-card mdl-shadow--1dp m-b-30">
             <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">{{item_llistar.length}} particelles</h2>
+               <h2 class="mdl-card__title-text">{{item_llistar.length}} particelles</h2>
+               <div style="margin-left:250px;">
+               <button ng-click="pujarParticella()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-upgraded=",MaterialButton,MaterialRipple">
+                  <i class="material-icons">add</i>
+                  <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" ></span></span>
+               </button>
+              </div>
             </div>
             <table ng-table="tableParams" template-pagination="custom/pager" class="table mdl-data-table fullwidth">
               <tr ng-repeat="item in $data">
@@ -35,15 +41,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div style="float: left;
-position: absolute;
-top: 31px;
-left: 777px;">
-        <button ng-click="pujarParticella()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons">add</i>
-            <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" ></span></span>
-        </button>
     </div>
   </div>
 </section>
