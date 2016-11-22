@@ -1,0 +1,49 @@
+<section class="text-fields" ng-controller="EditarParticheles" >
+  
+  <div >
+    <div class="mdl-color--blue-grey ml-header relative clear" style="min-height: 120px;">
+      <div class="p-20">
+        <div class="mdl-textfield mdl-js-textfield" style="padding-top: 0px;">
+            <input type="text" ng-model="tableParams.filter()['search']" class="mdl-textfield__input" placeholder="Buscar instrument" autofocus />
+         </div>
+      </div>
+    </div>
+    <div class="mdl-grid mdl-grid--no-spacing">
+      <div class="mdl-cell mdl-cell--9-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <div class="p-20 ml-card-holder ml-card-holder-first">
+
+          <div class="mdl-card mdl-shadow--1dp m-b-30">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">{{item_llistar.length}} particelles</h2>
+            </div>
+            <table ng-table="tableParams" template-pagination="custom/pager" class="table mdl-data-table fullwidth">
+              <tr ng-repeat="item in $data">
+                <td width="50" ng-bind-html="item.id">{{item.id}}</td>
+                <td class="text-left" data-title="'nom'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.nom}}</td>
+                <td class="text-left" data-title="'instrument'" filter="{ 'isntrument': 'text' }" sortable="'instrument'">{{item.instrument}}</td>
+                <td class="text-left" data-title="'enllas'" filter="{ 'enllas': 'text' }" ><a ng-hide="item.enllas==''" target="_blank" href="{{item.enllas}}"><i class="material-icons f-left">queue_music </i></a></td>
+
+                
+                <td data-title="'accions'" style="width:110px;">
+                  <div class="icons">
+                    <a href="#/particella/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
+                    <a ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="float: left;
+position: absolute;
+top: 31px;
+left: 777px;">
+        <button ng-click="pujarParticella()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons">add</i>
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" ></span></span>
+        </button>
+    </div>
+  </div>
+</section>
