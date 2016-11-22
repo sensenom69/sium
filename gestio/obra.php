@@ -206,7 +206,7 @@ if( $_SESSION['id_permis']>3)
                       <input type="button" value="Subir Archivo" onClick="uploadFile()" class="rm-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" />
                        
                         <button onclick="tornar()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                          Cancelar
+                          Eixir
                         </button>
                       </div>
                     </form>

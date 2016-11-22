@@ -1,11 +1,14 @@
-<section class="text-fields" ng-controller="EditarParticheles" >
+<section class="text-fields" ng-controller="ObraDetallController" >
   <div >
-  <div class="mdl-color--grey ml-header relative clear">
-    <div class="p-20">
-      <h3 class="mdl-color-text--white m-t-20 m-b-5">Gallery</h3>
-      <h4 class="mdl-color-text--grey-100 m-b-20 no-m-t w100">Manage all your media in your web application</h4>
+    <div class="mdl-color--grey ml-header relative clear">
+      <div class="p-20" style="padding-top: 10px;">
+        <h3 class="mdl-color-text--white m-t-20 m-b-5" style="margin-top: 10px;">{{obra.nom}}</h3>
+        <h4 class="mdl-color-text--grey-100 m-b-20 no-m-t w100">{{obra.compositor}}</h4>
+        <h5 class="mdl-color-text--grey-100 m-b-20 no-m-t w100">{{obra.descripcio}}</h5>
+        <a ng-hide="obra.partitura==''" target="_blank" href="{{obra.partitura}}"><i class="material-icons f-left">queue_music </i>Partitura</a></td>
+      </div>
     </div>
-  </div>
+
     <div class="mdl-color--blue-grey ml-header relative clear" style="min-height: 120px;">
       <div class="p-20">
         <div class="mdl-textfield mdl-js-textfield" style="padding-top: 0px;">
@@ -20,12 +23,6 @@
           <div class="mdl-card mdl-shadow--1dp m-b-30">
             <div class="mdl-card__title">
                <h2 class="mdl-card__title-text">{{item_llistar.length}} particelles</h2>
-               <div style="margin-left:250px;">
-               <button ng-click="pujarParticella()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" data-upgraded=",MaterialButton,MaterialRipple">
-                  <i class="material-icons">add</i>
-                  <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" ></span></span>
-               </button>
-              </div>
             </div>
             <table ng-table="tableParams" template-pagination="custom/pager" class="table mdl-data-table fullwidth">
               <tr ng-repeat="item in $data">
@@ -33,14 +30,6 @@
                 <td class="text-left" data-title="'nom'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.nom}}</td>
                 <td class="text-left" data-title="'instrument'" filter="{ 'isntrument': 'text' }" sortable="'instrument'">{{item.instrument}}</td>
                 <td class="text-left" data-title="'enllas'" filter="{ 'enllas': 'text' }" ><a ng-hide="item.enllas==''" target="_blank" href="{{item.enllas}}"><i class="material-icons f-left">queue_music </i></a></td>
-
-                
-                <td data-title="'accions'" style="width:110px;">
-                  <div class="icons">
-                    <a href="#/particella/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
-                    <a ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
-                  </div>
-                </td>
               </tr>
             </table>
           </div>

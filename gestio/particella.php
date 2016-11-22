@@ -247,7 +247,7 @@ if( $_SESSION['id_permis']>3)
                           Guardar
                         </button>
                         <button ng-click="tornar()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                          Cancelar
+                          Eixir
                         </button>
                       </div>
                     </form>

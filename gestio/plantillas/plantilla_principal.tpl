@@ -142,6 +142,7 @@
     <script charset="utf-8" src="js/controllers/familia.js"></script>
     <script charset="utf-8" src="js/controllers/instruments.js"></script>
     <script charset="utf-8" src="js/controllers/particella.js"></script>
+    <script charset="utf-8" src="js/controllers/detall_obra.js"></script>
 
   <script charset="utf-8" src="js/demo/directives/dynamic-color.js"></script>
   <script charset="utf-8" src="js/demo/directives/header.js"></script>

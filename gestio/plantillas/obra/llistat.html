@@ -10,7 +10,7 @@
 
   <div class="mdl-grid mdl-grid--no-spacing">
 
-    <div class="mdl-cell mdl-cell--9-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+    <div class="mdl-cell mdl-cell--12-col  mdl-cell--12-col-tablet mdl-cell--12-col-phone">
       <div class="p-20 ml-card-holder ml-card-holder-first">
 
         <div class="mdl-card mdl-shadow--1dp m-b-30">
@@ -25,9 +25,10 @@
               <td class="text-left" data-title="'compositor'" filter="{ 'compositor': 'text' }" sortable="'compositor'">{{item.compositor}}</td>
               <td class="text-left" data-title="'etiquetes'" filter="{ 'etiquetes': 'text' }" sortable="'etiquetes'">{{item.etiquetes}}</td>
               <td class="text-left" data-title="'agrupacio'" filter="{ 'agrupacio': 'text' }" sortable="'agrupacio'">{{item.agrupacio}}</td>
-              <td class="text-left" data-title="'partitura'" filter="{ 'partitura': 'text' }" ><a ng-hide="item.partitura==''" target="_blank" href="{{item.partitura}}"><i class="material-icons f-left">queue_music </i></a></td>
-              <td data-title="'accions'" style="width:110px;">
+              <td class="text-right" data-title="'part'" filter="{ 'partitura': 'text' }" ><a ng-hide="item.partitura==''" target="_blank" href="{{item.partitura}}"><i class="material-icons f-left">queue_music </i></a></td>
+              <td class="text-left" data-title="'accions'" style="width:150px;">
                 <div class="icons">
+                  <a href="#/obra/detall/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">remove_red_eye</i></div></a>
                   <a href="#/obra/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
                   <a ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
                 </div>
