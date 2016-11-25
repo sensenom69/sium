@@ -28,7 +28,6 @@ if( $_SESSION['id_permis']>3)
     if (!$client->getAccessToken() && !isset($_SESSION['token'])) {
         $authUrl = $client->createAuthUrl();
 
-
         print "<a class='login' href='$authUrl'>Conectar</a>";
     }        
    if (isset($_SESSION['token'])) {
@@ -206,7 +205,7 @@ if( $_SESSION['id_permis']>3)
                       <input type="button" value="Subir Archivo" onClick="uploadFile()" class="rm-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" />
                        
                         <button onclick="tornar()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                          Eixir
+                          Tornar
                         </button>
                       </div>
                     </form>
@@ -328,7 +327,7 @@ if( $_SESSION['id_permis']>3)
 
   <script charset="utf-8" src="js/directives/sticky.js"></script>
         <?php
-        print "<a class='logout' href='index.php#/obra/editar?id=".$_SESSION['id_obra_activa']."'>Tornar</a><br>";
+        //print "<a class='logout' href='index.php#/obra/editar?id=".$_SESSION['id_obra_activa']."'>Tornar</a><br>";
        if(isset($_FILES['archivo']['name'])){
             $target_path = "uploads/";
             $target_path = $target_path . basename( $_FILES['archivo']['name']); 
@@ -382,8 +381,13 @@ if( $_SESSION['id_permis']>3)
 
                 )
             );
+            if($obra->get("partitura")!=""){
+              $enllas = $obra->get("partitura");
+              $enllas = substr($enllas, 33);
+
+            }
             $obra->set(array("partitura"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
-            
+            unlink($target_path);
             $newPermission = new Google_Service_Drive_Permission(array(
                 'type'=>'anyone',
                 'role'=>'reader'
@@ -391,9 +395,9 @@ if( $_SESSION['id_permis']>3)
 
             $service->permissions->create($resultat_pujada['id'], $newPermission);
             
-            
-            print_r($obra);
-            unlink($target_path);
+            if($enllas!=""){
+                $resultat_pujada = $service->files->delete($enllas);
+              }
             
         }
         /*

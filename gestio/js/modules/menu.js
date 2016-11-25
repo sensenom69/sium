@@ -87,6 +87,12 @@
 
     vm.setBreadcrumb = function(name) {
       $rootScope.pageTitle = name;
+
+    };
+
+    vm.setTablacrumb = function(name) {
+      $rootScope.tablaTitle = name;
+
     };
 
   }
@@ -128,13 +134,15 @@
         if ( !scope.isActive ) {
           scope.isActive = !scope.isActive;
         }
-
+        var b = element.find('span').clone();
 
         var a = element.find('a').clone();
         a.find('i').remove();
+        a.find('span').remove();
         var title = a.text().trim();
-
-        menuCtrl.setBreadcrumb( title == 'Dashboard' ? '' : title );
+        var tabla = b.text().trim();
+        menuCtrl.setTablacrumb( title == 'Dashboard' ? 'ProvaTitul' : tabla );
+        menuCtrl.setBreadcrumb( title == 'Dashboard' ? 'ProvaTitul' : title );
 
       };
 

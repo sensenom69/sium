@@ -479,7 +479,7 @@ if( $_SESSION['id_permis']>3)
                     $resultat_pujada = $service->files->delete($enllas);
                 
                 }
-
+                unlink($target_path);
                 $newPermission = new Google_Service_Drive_Permission(array(
                     'type'=>'anyone',
                     'role'=>'reader'
@@ -487,8 +487,11 @@ if( $_SESSION['id_permis']>3)
 
                 $service->permissions->create($resultat_pujada['id'], $newPermission);
                 
+                if($_SESSION['id_particella']>0){
+                  $resultat_pujada = $service->files->delete($enllas);
+                }
                 
-                unlink($target_path);
+                
                 
             }
             else {
