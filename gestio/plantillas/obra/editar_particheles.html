@@ -1,11 +1,5 @@
 <section class="text-fields" ng-controller="EditarParticheles" >
-  <div >
-  <div class="mdl-color--grey ml-header relative clear">
-    <div class="p-20">
-      <h3 class="mdl-color-text--white m-t-20 m-b-5">Gallery</h3>
-      <h4 class="mdl-color-text--grey-100 m-b-20 no-m-t w100">Manage all your media in your web application</h4>
-    </div>
-  </div>
+
     <div class="mdl-color--blue-grey ml-header relative clear" style="min-height: 120px;">
       <div class="p-20">
         <div class="mdl-textfield mdl-js-textfield" style="padding-top: 0px;">
@@ -33,11 +27,9 @@
                 <td class="text-left" data-title="'nom'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.nom}}</td>
                 <td class="text-left" data-title="'instrument'" filter="{ 'isntrument': 'text' }" sortable="'instrument'">{{item.instrument}}</td>
                 <td class="text-left" data-title="'enllas'" filter="{ 'enllas': 'text' }" ><a ng-hide="item.enllas==''" target="_blank" href="{{item.enllas}}"><i class="material-icons f-left">queue_music </i></a></td>
-
-                
                 <td data-title="'accions'" style="width:110px;">
                   <div class="icons">
-                    <a href="#/particella/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
+                    <a ng-click="editarParticella(item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
                     <a ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
                   </div>
                 </td>

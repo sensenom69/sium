@@ -6,6 +6,12 @@ if( $_SESSION['id_permis']>3)
  if(!isset($_SESSION['id_obra_activa'])){
     $_SESSION['id_obra_activa']=0;
  }
+ if(isset($_GET['id_particella'])){
+  $_SESSION['id_particella'] = $_GET['id_particella'];
+ }
+ elseif(!isset($_SESSION['id_particella'])){
+  $_SESSION['id_particella'] = -1;
+ }
  if(isset($_GET['id_instrument_activa'])){
     $_SESSION['id_instrument_activa'] = $_GET['id_instrument_activa'];
  }
@@ -35,10 +41,14 @@ if( $_SESSION['id_permis']>3)
         print "<a class='login' href='$authUrl'>Conectar</a>";
     }        
    if (isset($_SESSION['token'])) {
+    if($_SESSION['id_particella']>0){
+      $particella = new Modelo("particella");
+      $particella->cargaRelacionConDatos("particella","id","ASC"," `particella`.`id`=".$_SESSION['id_particella']." ");
+    }
     ?>
         <script type="text/javascript">
-                var id_instrument_activa = 0;
-                var nom = ""
+                var id_instrument_activa = "<?PHP print $particella->cargas['particella'][$_SESSION['id_particella']]->datos['id_instrument']?>";
+                var nom = "<?PHP print $particella->cargas['particella'][$_SESSION['id_particella']]->datos['instrument']?>"
          
               function selectedFile() {
                 var archivoSeleccionado = document.getElementById("myfile");
@@ -61,11 +71,14 @@ if( $_SESSION['id_permis']>3)
             function uploadFile(){
                 //var url = "http://localhost/ReadMoveWebServices/WSUploadFile.asmx?op=UploadFile";    
                
-                var url = "particella.php?id_instrument_activa="+id_instrument_activa+"&nom_particella="+nom;
+                var url = "particella.php?editar=true&id_instrument_activa="+id_instrument_activa+"&nom_particella="+nom;
                 var archivoSeleccionado = document.getElementById("myfile");
                 var file = archivoSeleccionado.files[0];
-                var fd = new FormData();
-                fd.append("archivo", file);
+                if(file){
+                  var fd = new FormData();
+                  fd.append("archivo", file);
+                }
+                
                 var xmlHTTP= new XMLHttpRequest();              
                 //xmlHTTP.upload.addEventListener("loadstart", loadStartFunction, false);
                 xmlHTTP.upload.addEventListener("progress", progressFunction, false);
@@ -88,7 +101,6 @@ if( $_SESSION['id_permis']>3)
             }
 
             function canviatInstrument(id){
-                alert("entra en canvi"+id);
                 id_instrument_activa = id;
             }
              
@@ -207,9 +219,9 @@ if( $_SESSION['id_permis']>3)
                   </div>
                   <div class="p-30" >
                     <form name="formulari" ng-class="nou_item.clase" novalidate>
-                      <div ng-controller="SelectInstrument" ng-change="canviarInstrument($parent.nou_item.instrument)" ng-model="$parent.nou_item.instrument" ng-required="true">
+                      <div ng-controller="SelectInstrument" ng-change="canviarInstrument($parent.nou_item.instrument)" ng-model="$parent.nou_item.instrument" ng-required="true" ng-class="nou_item.clase">
                         <ui-select   id="select_instrument" name="select_instrument" scope="" onload="" theme="select2" ng-disabled="disabled" title="Tria un instrument" search-enabled="true" >
-                          <ui-select-match placeholder="Selecciona un instrument">{{$select.selected.nom}}</ui-select-match>
+                          <ui-select-match placeholder="Selecciona un instrument">{{$parent.nou_item.instrument.nom}}</ui-select-match>
                           <ui-select-choices repeat="item in instrument | filter: $select.search">
                             <div ng-bind-html="instrument_select.nom | highlight: $select.search"></div>
                             <small>
@@ -377,6 +389,12 @@ if( $_SESSION['id_permis']>3)
                 .controller('PujarParticheles', ['$scope', '$http', '$window', '$location','PlaceholderTextService', 'ngTableParams', '$filter','$mdDialog', PujarParticheles]);
 
               function PujarParticheles($scope, $http, $window, $location, PlaceholderTextService, ngTableParams, $filter,$mdDialog) {
+                      
+                      $scope.nou_item = [];
+                      $scope.nou_item.instrument = [];
+                      $scope.nou_item.nom = "<?PHP print $particella->cargas['particella'][$_SESSION['id_particella']]->datos['nom'];?>";
+                      $scope.nou_item.instrument.nom = "<?PHP print $particella->cargas['particella'][$_SESSION['id_particella']]->datos['instrument'];?>";
+                      id_instrument_activa = '<?PHP print $_SESSION['id_instrument_activa']?>';
                        $scope.canviarInstrument = function(){
                             id_instrument_activa = $scope.nou_item.instrument.id;
                         }
@@ -394,29 +412,50 @@ if( $_SESSION['id_permis']>3)
     
 </html>
         <?php
-       if(isset($_FILES['archivo']['name'])){
-            $target_path = "uploads/";
-            $target_path = $target_path . basename( $_FILES['archivo']['name']); 
-            if(move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) 
-            { echo "El archivo ". basename( $_FILES['archivo']['name']). " ha sido subido";
-            }
-            
-            
-            $obra = new Modelo("obra", array("id"=>$_SESSION['id_obra_activa']));
-            $obra->carga();
+        if(isset($_GET['editar'])){
+           if(isset($_FILES['archivo']['name'])){
+                $target_path = "uploads/";
+                $target_path = $target_path . basename( $_FILES['archivo']['name']); 
+                if(move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) 
+                { echo "El archivo ". basename( $_FILES['archivo']['name']). " ha sido subido";
+                }
+                
+                
+                $obra = new Modelo("obra", array("id"=>$_SESSION['id_obra_activa']));
+                $obra->carga();
 
 
-           $client->setAccessToken($_SESSION['token']);
-          $service = new Google_Service_Drive($client);
+               $client->setAccessToken($_SESSION['token']);
+              $service = new Google_Service_Drive($client);
 
-            //comprobem que no te carpeta creada
-            if($obra->get('drive')==""){
-                print_r($obra);
+                //comprobem que no te carpeta creada
+                if($obra->get('drive')==""){
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $file = new Google_Service_Drive_DriveFile();
+                    $file_path = $_SESSION['id_obra_activa']."-".$obra->get("nom");
+                    $mime_type = "application/vnd.google-apps.folder";
+                    $file->setName($_SESSION['id_obra_activa']."-".$obra->get("nom"));
+                    $file->setDescription('This is a '.$mime_type.' document');
+                    $file->setMimeType($mime_type);
+                    $resultat_pujada = $service->files->create(
+                        $file,
+                        array(
+                            'data' => file_get_contents($file_path),
+                            'mimeType' => $mime_type
+                        )
+                    );
+                    $obra->set(array("drive"=>$resultat_pujada['id']));
+                }
+
+              
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                $file = new Google_Service_Drive_DriveFile();
-                $file_path = $_SESSION['id_obra_activa']."-".$obra->get("nom");
-                $mime_type = "application/vnd.google-apps.folder";
-                $file->setName($_SESSION['id_obra_activa']."-".$obra->get("nom"));
+                $file = new Google_Service_Drive_DriveFile(array(
+                    'name' =>$_FILES['archivo']['name'],
+                    'parents' => array($obra->get('drive'))
+                    ));
+                $file_path = $target_path;
+                $mime_type = finfo_file($finfo, $file_path);
+                //$file->setName($_FILES['archivo']['name']);
                 $file->setDescription('This is a '.$mime_type.' document');
                 $file->setMimeType($mime_type);
                 $resultat_pujada = $service->files->create(
@@ -424,45 +463,45 @@ if( $_SESSION['id_permis']>3)
                     array(
                         'data' => file_get_contents($file_path),
                         'mimeType' => $mime_type
+
                     )
                 );
-                $obra->set(array("drive"=>$resultat_pujada['id']));
+                //$obra->set(array("partitura"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
+                if($_SESSION['id_particella']<0){
+                  $particella = new Modelo("particella", array("id"=>-1, "id_obra"=>$obra->get("id"), "id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella'], "enllas"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
+                }
+                else{
+                    $particella = new Modelo("particella", array("id"=>$_SESSION['id_particella']));
+                    $enllas = $particella->get("enllas");
+                    $enllas = substr($enllas, 33);
+
+                    $particella->set(array("id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella'], "enllas"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
+                    $resultat_pujada = $service->files->delete($enllas);
+                
+                }
+
+                $newPermission = new Google_Service_Drive_Permission(array(
+                    'type'=>'anyone',
+                    'role'=>'reader'
+                    ));
+
+                $service->permissions->create($resultat_pujada['id'], $newPermission);
+                
+                
+                unlink($target_path);
+                
             }
-
-          
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $file = new Google_Service_Drive_DriveFile(array(
-                'name' =>$_FILES['archivo']['name'],
-                'parents' => array($obra->get('drive'))
-                ));
-            $file_path = $target_path;
-            $mime_type = finfo_file($finfo, $file_path);
-            //$file->setName($_FILES['archivo']['name']);
-            $file->setDescription('This is a '.$mime_type.' document');
-            $file->setMimeType($mime_type);
-            $resultat_pujada = $service->files->create(
-                $file,
-                array(
-                    'data' => file_get_contents($file_path),
-                    'mimeType' => $mime_type
-
-                )
-            );
-            //$obra->set(array("partitura"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
-            $particella = new Modelo("particella", array("id"=>-1, "id_obra"=>$obra->get("id"), "id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella'], "enllas"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
-            
-            $newPermission = new Google_Service_Drive_Permission(array(
-                'type'=>'anyone',
-                'role'=>'reader'
-                ));
-
-            $service->permissions->create($resultat_pujada['id'], $newPermission);
-            
-            
-            print_r($obra);
-            unlink($target_path);
-            
-        }
+            else {
+              if($_SESSION['id_particella']<0){
+                  $particella = new Modelo("particella", array("id"=>-1, "id_obra"=>$obra->get("id"), "id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella']));
+                }
+                else{
+                    $particella = new Modelo("particella", array("id"=>$_SESSION['id_particella']));
+                    $particella->set(array("id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella']));
+                
+                }
+            }
+      }
         /*
       
       //$results = $service->files->listFiles();

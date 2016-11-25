@@ -404,13 +404,14 @@
 
   angular
     .module('material-lite')
-    .controller('TablaObra', ['$scope', '$http', 'PlaceholderTextService', 'ngTableParams', '$filter','$window','$mdDialog', TablaObra]);
+    .controller('TablaObra', ['$scope', '$http', 'PlaceholderTextService', 'ngTableParams', '$filter','$window','$mdDialog', 'APP', TablaObra]);
 
-  function TablaObra($scope, $http, PlaceholderTextService, ngTableParams, $filter,$window,$mdDialog) {
+  function TablaObra($scope, $http, PlaceholderTextService, ngTableParams, $filter,$window,$mdDialog,APP) {
     var tabla = "obra";
     //el modal
     $scope.status = '  ';
     $scope.customFullscreen = false;
+    $scope.id_permis = APP.id_permis;
 
     $scope.showConfirm = function(ev,identificador) {
       // Appending dialog to document.body to cover sidenav in docs app

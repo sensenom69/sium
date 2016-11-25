@@ -24,7 +24,7 @@ if(!isset($_SESSION["logejat"])){
     //si acaba de entrar
     if(!isset($adresa[2])){
         $resultat = include("secciones/principal/listado.php");
-        $plantilla_principal->cambioSustitucion("contenido",$resultat);
+        $plantilla_principal->cambioSustitucion("contenidosssssssss",$resultat);
     }
     if(count($adresa)>3){
         //if($adresa[2]!='principal' && $adresa[3]!='principal'){
@@ -56,5 +56,6 @@ if(!isset($_SESSION["logejat"])){
         header('Location: http://sium.ideas2bits.com');exit();
     }
 }
+$plantilla_principal->cambioSustitucion("id_permis", $_SESSION['id_permis']);
 print $plantilla_principal->mostrar();
 ?>

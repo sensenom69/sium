@@ -11,7 +11,7 @@
 
     $routeProvider.when('/', {
       //templateUrl: 'plantillas/dashboard.php'
-      templateUrl: 'plantillas/usuaris/llistat.html'
+      templateUrl: 'plantillas/obra/llistat.html'
 
     }).when('/:folder/:tpl', {
         templateUrl: function(attr){

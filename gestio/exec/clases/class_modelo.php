@@ -157,7 +157,8 @@ class Modelo{
         $sql = substr($sql,0,-1);
 //ojo que he posat el where tambe en el primer condicionant pa que fasa el de id_local
         //$sql .= (($obj->tabla == $this->tabla AND $condicions=="")? " WHERE ".$this->tabla.".id_local=".$_SESSION["id_local"]:" WHERE ")." 
-        $sql .= (($obj->tabla == $this->tabla AND $condicions=="")? " " : " WHERE ".$identifi." AND ")."
+        //$sql .= (($obj->tabla == $this->tabla AND $condicions=="")? " " : " WHERE ".$identifi." AND ")."
+        $sql .= (($obj->tabla == $this->tabla AND $condicions=="")? " WHERE ".$identifi." " : " WHERE ".$identifi." AND ")."
             ".($obj->tabla == $this->tabla? " ".$condicions : ($tabla.".id_".$this->tabla." = '".addslashes($this->datos['id'])."' ".$condicions));
         //$sql .=(($obj->tabla == $this->tabla AND $condicions=="")? "":$identifi);
             //$sql .=(($condicions=="")? " WHERE ": " AND ").$identifi; //////////////////////////////////Acabe de llevar esta per que fallava en el concert

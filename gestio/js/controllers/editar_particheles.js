@@ -47,6 +47,10 @@
       $window.location.href = "particella.php";
     }
 
+    $scope.editarParticella = function(id_particella){
+      $window.location.href = "particella.php?id_particella="+id_particella;
+    }
+
 
     //particheles
     var tabla = "particella";

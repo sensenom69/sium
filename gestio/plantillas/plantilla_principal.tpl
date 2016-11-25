@@ -82,12 +82,7 @@
   <!-- endbuild -->
   <!-- build:js js/demo.min.js -->
   <script charset="utf-8" src="js/demo/app.js"></script>
-  <script charset="utf-8" src="js/demo/app.route.js"></script>
-  <script charset="utf-8" src="js/demo/app.config.js"></script>
-  <script charset="utf-8" src="js/app.constants.js"></script>
-  <script charset="utf-8" src="js/demo/controllers/main.js"></script>
-  <script charset="utf-8" src="js/demo/controllers/dashboard.js"></script>
-  <script charset="utf-8" src="js/demo/controllers/todo.js"></script>
+
 
   <script charset="utf-8" src="js/demo/controllers/ui-elements/loading.js"></script>
   <script charset="utf-8" src="js/demo/controllers/gallery.js"></script>
@@ -119,8 +114,14 @@
   <script charset="utf-8" src="bower_components/angular-animate/angular-animate.js"></script>
   <script charset="utf-8" src="bower_components/angular-aria/angular-aria.js"></script>
   <script charset="utf-8" src="bower_components/angular-material/angular-material.js"></script>-->
-  <script charset="utf-8" src="js/controllers/tables-data.js"></script>
   <script charset="utf-8" src="js/controllers/sidebar.js"></script>
+  <script charset="utf-8" src="js/controllers/tables-data.js"></script>
+    <script charset="utf-8" src="js/demo/app.route.js"></script>
+  <script charset="utf-8" src="js/demo/app.config.js"></script>
+  //<script charset="utf-8" src="js/app.constants.js"></script>
+  <script charset="utf-8" src="js/demo/controllers/main.js"></script>
+  <script charset="utf-8" src="js/demo/controllers/dashboard.js"></script>
+  <script charset="utf-8" src="js/demo/controllers/todo.js"></script>
   
     <script charset="utf-8" src="js/controllers/nou_usuari.js"></script>
     <script charset="utf-8" src="js/controllers/nou_agrupacio.js"></script>
@@ -154,6 +155,13 @@
   <script charset="utf-8" src="js/modules/todo.js"></script>
 
   <script charset="utf-8" src="js/directives/sticky.js"></script>
+  <script type="text/javascript">
+    angular.module('app.constants', [])
+
+      .constant('APP', {version:'1.0.0', id_permis:##id_permis##})
+
+;
+  </script>
   <!-- endbuild -->
   <!--<script src="//localhost:35729/livereload.js"></script>--><!--@grep demo--><!--@grep release-->
 </body>

@@ -29,8 +29,8 @@
               <td class="text-left" data-title="'accions'" style="width:150px;">
                 <div class="icons">
                   <a href="#/obra/detall/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">remove_red_eye</i></div></a>
-                  <a href="#/obra/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
-                  <a ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
+                  <a ng-hide="id_permis > 3" href="#/obra/editar/?id={{item.id}}"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">mode_edit</i></div></a>
+                  <a ng-hide="id_permis > 3" ng-click="showConfirm($event, item.id)"><div class="icon-holder" style="float:left;"><i class="material-icons f-left">delete</i></div></a>
                 </div>
               </td>
             </tr>

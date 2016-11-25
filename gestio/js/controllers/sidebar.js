@@ -1,3 +1,5 @@
+
+
 (function() {
   'use strict';
 
@@ -9,9 +11,8 @@
     var url = "secciones/usuaris/dades.php";
     $http.post(url,{})
       .then(function(resposta){
-        console.log("res:", resposta.data);
+        console.log("res usuari:", resposta.data);
         $scope.usuari =  resposta.data;
       });
-    
   }
 })();
