@@ -3,70 +3,144 @@
     <div class="p-20">
     </div>
   </div>
-
-    <div ng-controller="NouConcert" class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
+    <div ng-controller="NouConcert" class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
+      <div style="visibility: hidden">
+        <div class="md-dialog-container" id="myDialog">
+          <md-dialog layout-padding style="max-height: 90%;">
+            <div class="p-20" style="padding: 0px 0px 0px 8px;">
+                <div class="mdl-textfield mdl-js-textfield" style="padding: 0px 0px 0px 20px;">
+                    <input type="text" ng-model="tableParams.filter()['search']" class="mdl-textfield__input" placeholder="Buscar partitura" autofocus />
+                 </div>
+              </div>
+              <table ng-table="tableParams" template-pagination="custom/pager" class="table mdl-data-table fullwidth  mdl-js-data-table mdl-data-table--selectable">
+                <tr ng-repeat="item in $data">
+                  <td width="50" >
+                    <md-checkbox aria-label="prova" name="check-{{item.id}}" id="check-{{item.id}}" ng-model="checks[item.id]" ng-click="apunta(item.id)"></md-checkbox>
+                  </td>
+                  <td class="text-left" data-title="'nom'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.id}}</td>
+                  <td class="text-left" data-title="'nom'" filter="{ 'nom': 'text' }" sortable="'nom'">{{item.nom}}</td>
+                  <td class="text-left" data-title="'compositor'" filter="{ 'compositor': 'text' }" sortable="'compositor'">{{item.compositor}}</td>
+                  <td class="text-left" data-title="'etiquetes'" filter="{ 'etiquetes': 'text' }" sortable="'etiquetes'">{{item.etiquetes}}</td>
+                  <td class="text-left" data-title="'agrupacio'" filter="{ 'agrupacio': 'text' }" sortable="'agrupacio'">{{item.agrupacio}}</td>
+                </tr>
+              </table>
+              <script type="text/ng-template" id="custom/pager">
+                <div ng-if="params.data.length" class="ml-data-table-pager p-10">
+                  <div ng-if="params.settings().counts.length" class="f-right">
+                    <button ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="mdl-button">10</button>
+                    <button ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="mdl-button">25</button>
+                    <button ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="mdl-button">50</button>
+                    <button ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="mdl-button">100</button>
+                  </div>
+                  <span ng-repeat="page in pages"
+                      ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+                      ng-switch="page.type">
+                    <button ng-switch-when="prev" ng-click="params.page(page.number)" class="mdl-button">&laquo;</button>
+                    <button ng-switch-when="first" ng-click="params.page(page.number)" class="mdl-button"><span ng-bind="page.number"></span></button>
+                    <button ng-switch-when="page" ng-click="params.page(page.number)" class="mdl-button"><span ng-bind="page.number"></span></button>
+                    <button ng-switch-when="more" ng-click="params.page(page.number)" class="mdl-button">&#8230;</button>
+                    <button ng-switch-when="last" ng-click="params.page(page.number)" class="mdl-button"><span ng-bind="page.number"></span></button>
+                    <button ng-switch-when="next" ng-click="params.page(page.number)" class="mdl-button">&raquo;</button>
+                  </span>
+                </div>
+              </script>
+              <div>
+                <md-button class="md-primary md-raised" ng-click="hide()">
+                  Tancar
+                </md-button>
+              </div>
+          </md-dialog>
+        </div>
+      </div>
       <div class="p-20 ml-card-holder">
         <div class="mdl-card mdl-shadow--1dp">
           <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Nou concert</h2>
           </div>
-          <div class="p-30" >
-            <form name="formulari" novalidate>
-              <div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 35px;float:left;">
-                    <input ng-model="nou_item.hora" class="mdl-textfield__input" type="number" min="0" max="23" id="hora" ng-required="true"/>
-                    <label class="mdl-textfield__label" for="hora">Hora</label>
+          <form name="formulari" novalidate>
+            <div class="p-30" style="float:left;width: 400px;">
+                <div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 35px;float:left;">
+                      <input ng-model="nou_item.hora" class="mdl-textfield__input" type="number" min="0" max="23" id="hora" ng-required="true"/>
+                      <label class="mdl-textfield__label" for="hora">Hora</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 15px;float:left; margin-left:5px;">
+                    :
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield" style="max-width: 35px;float:left; margin-left:5px;">
+                    <input ng-model="nou_item.minuts" class="mdl-textfield__input" type="number" min="0" max="59" id="minuts" ng-required="true"/>
+                   <label class="mdl-textfield__label" for="minuts">Minuts</label>
+                 </div>
+                  <div class="mdl-textfield mdl-js-textfield" style="width:50%;float:left; margin-left:10px;">
+                    <input firstDay="2" ng-model="nou_item.data" class="mdl-textfield__input"
+                         type="text"
+                         id="datepicker2"
+                         pikaday="datepicker2"
+                         format="DD-MM-YYYY"
+                         on-select="onPikadaySelect(pikaday, date)"
+                         theme="material-lite" ng-required="true"/>
+                    <label class="mdl-textfield__label" for="datepicker2">Selecciona una data</label>
+                  </div>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="max-width: 15px;float:left; margin-left:5px;">
-                  :
+                <div style="clear:both;"></div> 
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input ng-model="nou_item.lloc" class="mdl-textfield__input" type="text" id="lloc" pattern="[a-z0-9A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" ng-required="true"/>
+                  <label class="mdl-textfield__label" for="nom">Lloc</label>
+                  <span class="mdl-textfield__error">Per favor introduix un nom vàlid.</span>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield" style="max-width: 35px;float:left; margin-left:5px;">
-                  <input ng-model="nou_item.minuts" class="mdl-textfield__input" type="number" min="0" max="59" id="minuts" ng-required="true"/>
-                 <label class="mdl-textfield__label" for="minuts">Minuts</label>
-               </div>
-               <div class="mdl-textfield mdl-js-textfield" style="width:87%;float:left; margin-left:5px;">
-                <input firstDay="2" ng-model="nou_item.data" class="mdl-textfield__input"
-                       type="text"
-                       id="datepicker2"
-                       pikaday="datepicker2"
-                       format="DD-MM-YYYY"
-                       on-select="onPikadaySelect(pikaday, date)"
-                       theme="material-lite" ng-required="true"/>
-                <label class="mdl-textfield__label" for="datepicker2">Selecciona una data</label>
-                
-              </div>
-              </div>
-
-              <div style="clear:both;"></div>
-             
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input ng-model="nou_item.lloc" class="mdl-textfield__input" type="text" id="lloc" pattern="[a-z0-9A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" ng-required="true"/>
-                <label class="mdl-textfield__label" for="nom">Lloc</label>
-                <span class="mdl-textfield__error">Per favor introduix un nom vàlid.</span>
-              </div>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input ng-model="nou_item.preu" class="mdl-textfield__input" type="text" id="preu" />
-                <label class="mdl-textfield__label" for="nom">Preu</label>
-              </div>
-              <div class="mdl-textfield mdl-js-textfield" style="margin-top: 40px;">
-                <button ng-multiple="false" ngf-select ng-model="nou_item.programa" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                  Pujar programa
-                </button>
-                
-              </div>
-              <div  class="m-t-20">
-                <button type="submit" ng-disabled="formulari.$invalid" ng-click="add()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                  Guardar
-                </button>
-                <button ng-click="cancel()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input ng-model="nou_item.preu" class="mdl-textfield__input" type="text" id="preu" />
+                  <label class="mdl-textfield__label" for="nom">Preu</label>
+                </div>
+                <div class="m-t-20" style="margin-top: 40px;">
+                  <button ng-multiple="false" ngf-select ng-model="nou_item.programa" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    Pujar programa
+                  </button>
+                  <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="showModal($event)">
+                    Triar obres
+                  </button>
+                </div>
+                <div  class="m-t-20">
+                  <button type="submit" ng-disabled="formulari.$invalid" ng-click="add()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                    Guardar
+                  </button>
+                  <button ng-click="cancel()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                    Cancelar
+                  </button>
+                </div>
+            </div>
+            <div style="float:left;margin-left: 55px;" >
+            <div>
+              <ul style="list-style:none;">
+                  <li  ng-repeat="obra in obres" style="margin-bottom: 25px;">
+                    <div class="mdl-card mdl-shadow--0dp">
+                      <div class="mdl-card__title mdl-card--expand" style="background-image:url('img/photos/5.jpg'); min-height:75px; display:block;">
+                        <h1 class="mdl-card__title-text mdl-color-text--white"><b>{{obra.nom}}</b></h1>
+                        <h5 class="mdl-card__title-text mdl-color-text--white">{{obra.compositor}}</h5>
+                      </div>
+                      <div class="mdl-card__supporting-text">
+                        {{obra.descripcio}}
+                        <div class="tags m-t-20">
+                          <div class="f-right">
+                            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click="apunta(obra.id)" >
+                              <i class="material-icons f18 mdl-color-text--red-400">clear</i>
+                            </button>
+                          </div>
+                          <div class="p-t-5">
+                            <span data-ng-repeat="tag in obra.etiquetes.split(',')" class="mdl-color--grey-200 radius3 inline p-5 f11 m-r-5">
+                              {{tag}}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </li>
+              </ul>
+            </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-
   </div>  
 </section>
