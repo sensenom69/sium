@@ -58,15 +58,16 @@
           $scope.selected.splice(posicion,1);
           posicion = tornaPosObra($scope.obres, id);
           $scope.obres.splice(posicion,1);
+          $scope.checks[id]=false;
         }
         else{
           $scope.selected.push(id);
           $scope.obres.push($scope.item_llistar[tornaPosObra($scope.item_llistar, id)]);
         }
 
-      }; 
+    }; 
 
-      $scope.showModal = function(ev) {
+    $scope.showModal = function(ev) {
         $mdDialog.show({
           controller: DialogController($scope,$mdDialog),
           contentElement: '#myDialog',
@@ -74,10 +75,10 @@
           targetEvent: ev,
           clickOutsideToClose: true
         });
-      };
+    };
 
 
-      function DialogController($scope, $mdDialog) {
+    function DialogController($scope, $mdDialog) {
         $scope.hide = function() {
           $mdDialog.hide();
         };
@@ -89,7 +90,7 @@
         $scope.answer = function(answer) {
           $mdDialog.hide(answer);
         };
-      }
+    }
 
   }
 
@@ -97,7 +98,7 @@
         for(var i=0; i<$scope.selected; i++){
           $scope.checks[$scope.selected[i]] = true;
         }
-      }
+  }
 
   function refrescaTabla($scope,$filter,ngTableParams, item_llistar, selected){
     $scope.tableParams = new ngTableParams({

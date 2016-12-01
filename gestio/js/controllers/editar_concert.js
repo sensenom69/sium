@@ -37,8 +37,8 @@
         $scope.id_obres = resposta.data[1]['obres'];
         for(var i=0; i< $scope.id_obres.length; i++){
           $scope.apunta($scope.id_obres[i].id_obra);
+          $scope.checks[$scope.id_obres[i].id_obra] = true;
         }
-        marcaCanviPagina($scope);
       });
 
 
@@ -65,6 +65,7 @@
           $scope.selected.splice(posicion,1);
           posicion = tornaPosObra($scope.obres, id);
           $scope.obres.splice(posicion,1);
+          $scope.checks[id]=false;
         }
         else{
           $scope.selected.push(id);
