@@ -142,7 +142,7 @@ class Modelo{
             if(count($id)>1){
                 $identificadors[]=array($camp,$id[1]);
                 //$sql .= "`".$id[1]."`.`nombre` as `".$id[1].".nombre` ,";
-                $sql .= "`".$id[1]."`.`nom` as `".$id[1]."` ,";
+                //$sql .= "`".$id[1]."`.`nom` as `".$id[1]."` ,";//HE llevat aso per que n totes les tables tenen nom
             }
         }
         $sql = substr($sql,0,-1);
@@ -158,7 +158,7 @@ class Modelo{
 //ojo que he posat el where tambe en el primer condicionant pa que fasa el de id_local
         //$sql .= (($obj->tabla == $this->tabla AND $condicions=="")? " WHERE ".$this->tabla.".id_local=".$_SESSION["id_local"]:" WHERE ")." 
         //$sql .= (($obj->tabla == $this->tabla AND $condicions=="")? " " : " WHERE ".$identifi." AND ")."
-        $sql .= (($obj->tabla == $this->tabla AND $condicions=="")? ($identifi=="")? "": " WHERE ".$identifi." " : " WHERE ".$identifi." AND ")."
+        $sql .= (($obj->tabla == $this->tabla AND $condicions=="")? (($identifi=="")? "": " WHERE ".$identifi." ") : (($identifi=="")? " WHERE " :" WHERE ".$identifi." AND "))."
             ".($obj->tabla == $this->tabla? " ".$condicions : ($tabla.".id_".$this->tabla." = '".addslashes($this->datos['id'])."' ".$condicions));
         //$sql .=(($obj->tabla == $this->tabla AND $condicions=="")? "":$identifi);
             //$sql .=(($condicions=="")? " WHERE ": " AND ").$identifi; //////////////////////////////////Acabe de llevar esta per que fallava en el concert

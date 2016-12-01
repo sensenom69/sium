@@ -26,9 +26,30 @@ if(!isset($request['id'])){
 else{
 	$llistat = new Modelo($tabla, $request);
 	$llistat->cargaRelacionConDatos($tabla,"id","asc"," `".$tabla."`.`id` = ".$request['id']." ");
+	
+	$data = substr($llistat->cargas[$tabla][$request['id']]->datos["data"], 0,10);
+	$data = explode("-", $data);
+	$hora = substr($llistat->cargas[$tabla][$request['id']]->datos["data"], 11,2);
+	$minuts = substr($llistat->cargas[$tabla][$request['id']]->datos["data"], 14,2);
+	$llistat->cargas[$tabla][$request['id']]->datos["data"] = $data[2]."-".$data[1]."-".$data[0];
+	$llistat->cargas[$tabla][$request['id']]->datos["hora"] = $hora+0;
+	$llistat->cargas[$tabla][$request['id']]->datos["minuts"] = $minuts+0;
+
+	//carregue les obres
+	$llistat->cargaRelacionConDatos('concert_obra', "id", "asc");
+	
+
 	$text_json = json_encode($llistat->cargas[$tabla][$request['id']]->datos);
+	$obres_json = "";
+	$i=1;
+	foreach($llistat->cargas['concert_obra'] as $key => $value){
+		$obres_json .= json_encode($value->datos);	
+		if($i<count($llistat->cargas['concert_obra'])) $obres_json .=', ';
+		$i++;
+	}
+	
 }
 
-echo '['.$text_json.']';
+echo '['.$text_json.', {"obres": ['.$obres_json.']}]';
 
 ?>
