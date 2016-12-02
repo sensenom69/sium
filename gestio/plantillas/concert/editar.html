@@ -98,8 +98,8 @@
                   <label class="mdl-textfield__label" for="nom">Preu</label>
                 </div>
                 <div class="m-t-20" style="margin-top: 40px;">
-                  <button ng-multiple="false" ngf-select ng-model="nou_item.programa" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                    Pujar programa
+                  <button ng-click="pujarArxiu()" type="submit" ng-model="nou_item.programa" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    Pujar Programa
                   </button>
                   <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="showModal($event)">
                       Triar obres
@@ -148,6 +148,5 @@
         </div>
       </div>
     </div>
-
   </div>  
 </section>

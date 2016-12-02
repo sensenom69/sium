@@ -31,6 +31,8 @@ if( $_SESSION['id_permis']>3)
         print "<a class='login' href='$authUrl'>Conectar</a>";
     }        
    if (isset($_SESSION['token'])) {
+        $obra = new Modelo("obra", array("id"=>$_SESSION['id_obra_activa']));
+        $obra->carga();   
     ?>
         <script type="text/javascript">
          
@@ -89,6 +91,7 @@ if( $_SESSION['id_permis']>3)
                 var percentageDiv = document.getElementById("percentageCalc");
                 progressBar.value = 100;
                 percentageDiv.innerHTML = "100%";   
+                window.location.href="index.php#/obra/editar?id=<?php print $_SESSION['id_obra_activa'] ?>";
             }   
              
             function uploadFailed(evt) {
@@ -106,7 +109,6 @@ if( $_SESSION['id_permis']>3)
          
         </script>
         <!DOCTYPE html>
-            }
 <html lang="en" ng-app="material-lite">
   <head>
     <meta charset="utf-8">
@@ -178,7 +180,7 @@ if( $_SESSION['id_permis']>3)
               <div class="p-20 ml-card-holder">
                 <div class="mdl-card mdl-shadow--1dp">
                   <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text"></b></h2>
+                    <h2 class="mdl-card__title-text"><b>Pujar partitura obra <?PHP print $obra->get("nom")?></b></h2>
                   </div>
                   <div class="p-30" >
                     <form name="formulari" ng-class="nou_item.clase" novalidate>
@@ -335,9 +337,6 @@ if( $_SESSION['id_permis']>3)
             { echo "El archivo ". basename( $_FILES['archivo']['name']). " ha sido subido";
             }
             
-            
-            $obra = new Modelo("obra", array("id"=>$_SESSION['id_obra_activa']));
-            $obra->carga();
 
 
            $client->setAccessToken($_SESSION['token']);

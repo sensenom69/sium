@@ -24,6 +24,8 @@ if(!isset($request['id'])){
 	}
 }
 else{
+	$_SESSION['id_concert_activa'] = $request['id'];
+
 	$llistat = new Modelo($tabla, $request);
 	$llistat->cargaRelacionConDatos($tabla,"id","asc"," `".$tabla."`.`id` = ".$request['id']." ");
 	

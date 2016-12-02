@@ -3,20 +3,11 @@ require_once("exec/comun.php");
 if( $_SESSION['id_permis']>3)
     header('Location: http://sium.ideas2bits.com');
  session_start();
- if(!isset($_SESSION['id_obra_activa'])){
-    $_SESSION['id_obra_activa']=0;
+ if(!isset($_SESSION['id_concert_activa'])){
+    $_SESSION['id_concert_activa']=0;
  }
- if(isset($_GET['id_particella'])){
-  $_SESSION['id_particella'] = $_GET['id_particella'];
- }
- elseif(!isset($_SESSION['id_particella'])){
-  $_SESSION['id_particella'] = -1;
- }
- if(isset($_GET['id_instrument_activa'])){
-    $_SESSION['id_instrument_activa'] = $_GET['id_instrument_activa'];
- }
- if(isset($_GET['nom_particella'])){
-    $_SESSION['nom_particella'] = $_GET['nom_particella'];
+ if(isset($_GET["logout"])){
+  session_destroy();
  }
     require_once 'google-api-php-client/vendor/autoload.php';
     $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
@@ -24,7 +15,7 @@ if( $_SESSION['id_permis']>3)
     // Get your credentials from the console
     $client->setClientId('310652789266-c2ljs8he2omfsloo86cmc4bkglcvm2k6.apps.googleusercontent.com');
     $client->setClientSecret('97wWaiA26zIMVE9l44q6L-Nk');
-    $client->setRedirectUri('http://www.sium.ideas2bits.com/gestio2/particella.php');
+    $client->setRedirectUri('http://www.sium.ideas2bits.com/gestio2/concert.php');
     $client->setScopes(array('https://www.googleapis.com/auth/drive'));
     $authUrl = $client->createAuthUrl();
     if (isset($_GET['code'])) {
@@ -37,20 +28,17 @@ if( $_SESSION['id_permis']>3)
     if (!$client->getAccessToken() && !isset($_SESSION['token'])) {
         $authUrl = $client->createAuthUrl();
 
-
         print "<a class='login' href='$authUrl'>Conectar</a>";
     }        
    if (isset($_SESSION['token'])) {
-      $obra = new Modelo("obra", array("id"=>$_SESSION['id_obra_activa']));
-      $obra->carga();
-    if($_SESSION['id_particella']>0){
-      $particella = new Modelo("particella");
-      $particella->cargaRelacionConDatos("particella","id","ASC"," `particella`.`id`=".$_SESSION['id_particella']." ");
-    }
+      $concert = new Modelo("concert", array("id"=>$_SESSION['id_concert_activa']));
+      $concert->carga();
+      $data = $concert->get("data");
+      $data = substr($data, 0,10);
+      $data = explode("-", $data);
+      $dia = $data[2]."-".$data[1]."-".$data[0];
     ?>
         <script type="text/javascript">
-                var id_instrument_activa = "<?PHP print $particella->cargas['particella'][$_SESSION['id_particella']]->datos['id_instrument']?>";
-                var nom = "<?PHP print $particella->cargas['particella'][$_SESSION['id_particella']]->datos['instrument']?>"
          
               function selectedFile() {
                 var archivoSeleccionado = document.getElementById("myfile");
@@ -71,16 +59,12 @@ if( $_SESSION['id_permis']>3)
               }     
          
             function uploadFile(){
-                //var url = "http://localhost/ReadMoveWebServices/WSUploadFile.asmx?op=UploadFile";    
-               
-                var url = "particella.php?editar=true&id_instrument_activa="+id_instrument_activa+"&nom_particella="+nom;
+                //var url = "http://localhost/ReadMoveWebServices/WSUploadFile.asmx?op=UploadFile";     
+                var url = "concert.php";
                 var archivoSeleccionado = document.getElementById("myfile");
                 var file = archivoSeleccionado.files[0];
-                if(file){
-                  var fd = new FormData();
-                  fd.append("archivo", file);
-                }
-                
+                var fd = new FormData();
+                fd.append("archivo", file);
                 var xmlHTTP= new XMLHttpRequest();              
                 //xmlHTTP.upload.addEventListener("loadstart", loadStartFunction, false);
                 xmlHTTP.upload.addEventListener("progress", progressFunction, false);
@@ -101,10 +85,6 @@ if( $_SESSION['id_permis']>3)
                     percentageDiv.innerHTML = Math.round(evt.loaded / evt.total * 100) + "%";
                 }
             }
-
-            function canviatInstrument(id){
-                id_instrument_activa = id;
-            }
              
             function loadStartFunction(evt){
                 alert('Comenzando a subir el archivo');
@@ -115,6 +95,7 @@ if( $_SESSION['id_permis']>3)
                 var percentageDiv = document.getElementById("percentageCalc");
                 progressBar.value = 100;
                 percentageDiv.innerHTML = "100%";   
+                window.location.href="index.php#/concert/editar?id=<?php print $_SESSION['id_concert_activa'] ?>";
             }   
              
             function uploadFailed(evt) {
@@ -124,35 +105,21 @@ if( $_SESSION['id_permis']>3)
             function uploadCanceled(evt) {
                 alert("La operación se canceló o la conexión fue interrunpida.");
             }
+            function tornar(){
+                window.location="index.php#/concert/editar?id=<?php print $_SESSION['id_concert_activa'] ?>";
+            }
              
                              
-
+         
         </script>
-
-        <!doctype html>
-<!--
-  Material Design Lite
-  Copyright 2015 Google Inc. All rights reserved.
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      https://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License
--->
+        <!DOCTYPE html>
 <html lang="en" ng-app="material-lite">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>SIUM particelles</title>
+    <title>SIUM progama</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -206,7 +173,7 @@ if( $_SESSION['id_permis']>3)
     }
     </style>
   </head>
-    <body>
+  <body>
     <section class="text-fields" ng-controller="PujarParticheles" >
           <div class="mdl-color--amber ml-header relative clear" style="min-height: 120px;">
             <div class="p-20">
@@ -217,26 +184,10 @@ if( $_SESSION['id_permis']>3)
               <div class="p-20 ml-card-holder">
                 <div class="mdl-card mdl-shadow--1dp">
                   <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text"><b>Pujar particelles obra <?PHP print $obra->get("nom");?></b></h2>
+                    <h2 class="mdl-card__title-text"><b>Pujar programa concert <?PHP print $dia;?></b></h2>
                   </div>
                   <div class="p-30" >
                     <form name="formulari" ng-class="nou_item.clase" novalidate>
-                      <div ng-controller="SelectInstrument" ng-change="canviarInstrument($parent.nou_item.instrument)" ng-model="$parent.nou_item.instrument" ng-required="true" ng-class="nou_item.clase">
-                        <ui-select   id="select_instrument" name="select_instrument" scope="" onload="" theme="select2" ng-disabled="disabled" title="Tria un instrument" search-enabled="true" >
-                          <ui-select-match placeholder="Selecciona un instrument">{{$parent.nou_item.instrument.nom}}</ui-select-match>
-                          <ui-select-choices repeat="item in instrument | filter: $select.search">
-                            <div ng-bind-html="instrument_select.nom | highlight: $select.search"></div>
-                            <small>
-                              {{item.nom}}
-                            </small>
-                          </ui-select-choices>
-                        </ui-select>
-                      </div>
-                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ng-class="nou_item.clase">
-                        <input ng-blur="canviNom(nou_item.nom)" ng-model="nou_item.nom" class="mdl-textfield__input" type="text" pattern="[a-z0-9A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" id="nom" ng-required="true"/>
-                        <label class="mdl-textfield__label" for="nom">Nom</label>
-                        <span class="mdl-textfield__error">Per favor introduix un nom vàlid.</span>
-                      </div>
                       <div class="mdl-textfield mdl-js-textfield" style="margin-top: 40px;">
                          <ul class="options">
                         <li>
@@ -257,11 +208,10 @@ if( $_SESSION['id_permis']>3)
                             <div id="percentageCalc"></div>
                         </div>
                       <div  class="m-t-20">
-                        <button type="submit" onClick="uploadFile()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                          Guardar
-                        </button>
-                        <button ng-click="tornar()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                          Eixir
+                      <input type="button" value="Pujar arxiu" onClick="uploadFile()" class="rm-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" />
+                       
+                        <button onclick="tornar()" type="reset" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                          Tornar
                         </button>
                       </div>
                     </form>
@@ -382,81 +332,30 @@ if( $_SESSION['id_permis']>3)
   <script charset="utf-8" src="js/modules/todo.js"></script>
 
   <script charset="utf-8" src="js/directives/sticky.js"></script>
-<script type="text/javascript">
-         (function() {
-              'use strict';
-
-              angular
-                .module('material-lite')
-                .controller('PujarParticheles', ['$scope', '$http', '$window', '$location','PlaceholderTextService', 'ngTableParams', '$filter','$mdDialog', PujarParticheles]);
-
-              function PujarParticheles($scope, $http, $window, $location, PlaceholderTextService, ngTableParams, $filter,$mdDialog) {
-                      
-                      $scope.nou_item = [];
-                      $scope.nou_item.instrument = [];
-                      $scope.nou_item.nom = "<?PHP print $particella->cargas['particella'][$_SESSION['id_particella']]->datos['nom'];?>";
-                      $scope.nou_item.instrument.nom = "<?PHP print $particella->cargas['particella'][$_SESSION['id_particella']]->datos['instrument'];?>";
-                      id_instrument_activa = '<?PHP print $_SESSION['id_instrument_activa']?>';
-                       $scope.canviarInstrument = function(){
-                            id_instrument_activa = $scope.nou_item.instrument.id;
-                        }
-                        $scope.canviNom = function(){
-                            nom = $scope.nou_item.nom;
-                        }
-                         $scope.tornar = function(){
-                            $window.location.href = "index.php#/obra/editar_particheles?id=<?php print $_SESSION['id_obra_activa'] ?>";
-                        }
-                
-            }
-
-        })();
-    </script>
-    
-</html>
         <?php
-        if(isset($_GET['editar'])){
-           if(isset($_FILES['archivo']['name'])){
-                $target_path = "uploads/";
-                $target_path = $target_path . basename( $_FILES['archivo']['name']); 
-                if(move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) 
-                { echo "El archivo ". basename( $_FILES['archivo']['name']). " ha sido subido";
-                }
-                
-                
-                
+        //print "<a class='logout' href='index.php#/concert/editar?id=".$_SESSION['id_concert_activa']."'>Tornar</a><br>";
+       if(isset($_FILES['archivo']['name'])){
+            $target_path = "uploads/";
+            $target_path = $target_path . basename( $_FILES['archivo']['name']); 
+            if(move_uploaded_file($_FILES['archivo']['tmp_name'], $target_path)) 
+            { echo "El archivo ". basename( $_FILES['archivo']['name']). " ha sido subido";
+            }
+            
+            
+            
 
 
-               $client->setAccessToken($_SESSION['token']);
-              $service = new Google_Service_Drive($client);
+           $client->setAccessToken($_SESSION['token']);
+          $service = new Google_Service_Drive($client);
 
-                //comprobem que no te carpeta creada
-                if($obra->get('drive')==""){
-                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                    $file = new Google_Service_Drive_DriveFile();
-                    $file_path = $_SESSION['id_obra_activa']."-".$obra->get("nom");
-                    $mime_type = "application/vnd.google-apps.folder";
-                    $file->setName($_SESSION['id_obra_activa']."-".$obra->get("nom"));
-                    $file->setDescription('This is a '.$mime_type.' document');
-                    $file->setMimeType($mime_type);
-                    $resultat_pujada = $service->files->create(
-                        $file,
-                        array(
-                            'data' => file_get_contents($file_path),
-                            'mimeType' => $mime_type
-                        )
-                    );
-                    $obra->set(array("drive"=>$resultat_pujada['id']));
-                }
-
-              
+            //comprobem que no te carpeta creada
+          /*
+            if($concert->get('drive')==""){
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                $file = new Google_Service_Drive_DriveFile(array(
-                    'name' =>$_FILES['archivo']['name'],
-                    'parents' => array($obra->get('drive'))
-                    ));
-                $file_path = $target_path;
-                $mime_type = finfo_file($finfo, $file_path);
-                //$file->setName($_FILES['archivo']['name']);
+                $file = new Google_Service_Drive_DriveFile();
+                $file_path = $_SESSION['id_concert_activa']."-".$concert->get("nom");
+                $mime_type = "application/vnd.google-apps.folder";
+                $file->setName($_SESSION['id_concert_activa']."-".$concert->get("nom"));
                 $file->setDescription('This is a '.$mime_type.' document');
                 $file->setMimeType($mime_type);
                 $resultat_pujada = $service->files->create(
@@ -464,48 +363,50 @@ if( $_SESSION['id_permis']>3)
                     array(
                         'data' => file_get_contents($file_path),
                         'mimeType' => $mime_type
-
                     )
                 );
-                //$obra->set(array("partitura"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
-                if($_SESSION['id_particella']<0){
-                  $particella = new Modelo("particella", array("id"=>-1, "id_obra"=>$obra->get("id"), "id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella'], "enllas"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
-                }
-                else{
-                    $particella = new Modelo("particella", array("id"=>$_SESSION['id_particella']));
-                    $enllas = $particella->get("enllas");
-                    $enllas = substr($enllas, 33);
-
-                    $particella->set(array("id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella'], "enllas"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
-                    $resultat_pujada = $service->files->delete($enllas);
-                
-                }
-                unlink($target_path);
-                $newPermission = new Google_Service_Drive_Permission(array(
-                    'type'=>'anyone',
-                    'role'=>'reader'
-                    ));
-
-                $service->permissions->create($resultat_pujada['id'], $newPermission);
-                
-                if($_SESSION['id_particella']>0){
-                  $resultat_pujada = $service->files->delete($enllas);
-                }
-                
-                
-                
+                $concert->set(array("drive"=>$resultat_pujada['id']));
             }
-            else {
-              if($_SESSION['id_particella']<0){
-                  $particella = new Modelo("particella", array("id"=>-1, "id_obra"=>$obra->get("id"), "id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella']));
-                }
-                else{
-                    $particella = new Modelo("particella", array("id"=>$_SESSION['id_particella']));
-                    $particella->set(array("id_instrument"=>$_SESSION['id_instrument_activa'], "nom"=>$_SESSION['nom_particella']));
-                
-                }
+            */
+
+          
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $file = new Google_Service_Drive_DriveFile(array(
+                'name' =>$_FILES['archivo']['name'],
+                'parents' => array('0BwWAZqxfEPKrLWJMSnJ1cXFScXc')
+                ));
+            $file_path = $target_path;
+            $mime_type = finfo_file($finfo, $file_path);
+            //$file->setName($_FILES['archivo']['name']);
+            $file->setDescription('This is a '.$mime_type.' document');
+            $file->setMimeType($mime_type);
+            $resultat_pujada = $service->files->create(
+                $file,
+                array(
+                    'data' => file_get_contents($file_path),
+                    'mimeType' => $mime_type
+
+                )
+            );
+            if($concert->get("programa")!=""){
+              $enllas = $concert->get("programa");
+              $enllas = substr($enllas, 33);
+
             }
-      }
+            $concert->set(array("programa"=>"https://drive.google.com/open?id=".$resultat_pujada['id']));
+            unlink($target_path);
+            $newPermission = new Google_Service_Drive_Permission(array(
+                'type'=>'anyone',
+                'role'=>'reader'
+                ));
+
+            $service->permissions->create($resultat_pujada['id'], $newPermission);
+            
+            if($enllas!=""){
+                $resultat_pujada = $service->files->delete($enllas);
+              }
+            
+        }
         /*
       
       //$results = $service->files->listFiles();

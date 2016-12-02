@@ -84,6 +84,10 @@
         });
     };
 
+    $scope.pujarArxiu = function(){
+      $window.location.href = "concert.php";
+    }
+
 
     function DialogController($scope, $mdDialog) {
         $scope.hide = function() {
