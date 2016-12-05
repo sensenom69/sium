@@ -189,18 +189,18 @@ if( $_SESSION['id_permis']>3)
                   <div class="p-30" >
                     <form name="formulari" ng-class="nou_item.clase" novalidate>
                       <div class="mdl-textfield mdl-js-textfield" style="margin-top: 40px;">
-                         <ul class="options">
-                        <li>
+                         <ul class="options" style="list-style:none;">
+                            <li>
 
-                            <input type="file" id="myfile" name="myfile" class="rm-input" onchange="selectedFile();"/>
-                        </li>
-                        <li>
-                            <div id="fileSize"></div>
-                        </li>
-                        <li>
-                            <div id="fileType"></div>
-                        </li>
-                    </ul>
+                                <input type="file" id="myfile" name="myfile" class="rm-input" onchange="selectedFile();"/>
+                            </li>
+                            <li>
+                                <div id="fileSize"></div>
+                            </li>
+                            <li>
+                                <div id="fileType"></div>
+                            </li>
+                        </ul>
                       </div>
                       <div id="wrap">
                            

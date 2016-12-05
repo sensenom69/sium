@@ -58,13 +58,13 @@
           $scope.selected.splice(posicion,1);
           posicion = tornaPosObra($scope.obres, id);
           $scope.obres.splice(posicion,1);
-          $scope.checks[id]=false;
+          
         }
         else{
           $scope.selected.push(id);
           $scope.obres.push($scope.item_llistar[tornaPosObra($scope.item_llistar, id)]);
         }
-
+        return 0;
     }; 
 
     $scope.showModal = function(ev) {
@@ -83,7 +83,7 @@
           $mdDialog.hide();
         };
 
-        $scope.cancel = function() {
+        $scope.tancar = function() {
           $mdDialog.cancel();
         };
 

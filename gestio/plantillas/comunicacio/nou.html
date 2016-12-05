@@ -1,37 +1,54 @@
 <section class="text-fields" ng-controller="NouComunicacio">
   <form name="formulari" novalidate>
-  <div class="mdl-color--amber ml-header relative clear" >
-    <diV class="contenedor_scroll" style="float:left;overflow: scroll;max-height:213px;margin-left:50px;" >
-     <div ng-repeat="item in item_llistar_agrupacio" >
-       <div ng-style="display=inline;"><input type="checkbox" id="checkbox_agrupacio-{{item.id}}" class="mdl-checkbox__input" /><label>{{item.nom}}</label></div>
-     </div>
+  <div class="mdl-color--blue-grey ml-header relative clear" style="height:310px;">
+    <diV class="mdl-card contenedor">
+      <h4>Agrupació</h4>
+      <div class="contenedor_scroll ">
+        <ul class="llista_opcions_comunicacio">
+          <li ng-repeat="item in item_llistar_agrupacio" ng-style="display=inline;">
+            <md-checkbox aria-label="prova" name="check_agrupacio-{{item.id}}" id="check_agrupacio-{{item.id}}" ng-model="receptors['agrupacio'][item.id]" ></md-checkbox>
+            <label>{{item.nom}}</label>
+          </li>
+        </ul>
+      </diV>
+    </div>
+    <diV class="contenedor mdl-card" >
+      <h4>Familia</h4>
+      <div class="contenedor_scroll ">
+        <ul class="llista_opcions_comunicacio">
+          <li ng-repeat="item in item_llistar_familia" ng-style="display=inline;">
+            <md-checkbox aria-label="prova" name="check_familia-{{item.id}}" id="check_familia-{{item.id}}" ng-model="receptors['familia'][item.id]" ></md-checkbox>
+            <label>{{item.nom}}</label>
+          </li>
+       </ul>
+       </div>
     </diV>
-    <diV class="contenedor_scroll" style="float:left;overflow: scroll;max-height:213px; margin-left:50px;" >
-     <div ng-repeat="item in item_llistar_familia" >
-       <div ng-style="display=inline;"><input type="checkbox" id="checkbox_familia-{{item.id}}" class="mdl-checkbox__input" /><label>{{item.nom}}</label></div>
-     </div>
-    </diV>
-    <diV class="contenedor_scroll" style="float:left;overflow: scroll;max-height:213px; margin-left:50px;" >
-     <div ng-repeat="item in item_llistar_instrument" >
-       <div ng-style="display=inline;"><input type="checkbox" id="checkbox_instrument-{{item.id}}" class="mdl-checkbox__input" /><label>{{item.nom}}</label></div>
-     </div>
+    <diV class="contenedor mdl-card" >
+      <h4>Instrument</h4>
+      <div class="contenedor_scroll ">
+        <ul class="llista_opcions_comunicacio">
+          <li ng-repeat="item in item_llistar_instrument" >
+            <md-checkbox aria-label="prova" name="check_instrument-{{item.id}}" id="check_instrument-{{item.id}}" ng-model="receptors['instrument'][item.id]" ></md-checkbox>
+            <label>{{item.nom}}</label>
+          </li>
+        </ul>
+      </div>
     </diV>
   </div>
-    <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l">
+  <div class="mdl-cell mdl-cell--9-col mdl-cell--12-col-tablet mdl-cell--12-col-phone no-p-l" style="margin-top: -82px;">
       <div class="p-20 ml-card-holder">
         <div class="mdl-card mdl-shadow--1dp">
           <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Nova comunicació</h2>
           </div>
-          <div class="p-30" >
-            
+          <div class="p-30" style="padding-top: 0px;">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input ng-model="nou_item.assumpte" class="mdl-textfield__input" type="text" 
                 pattern="[a-z0-9A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" id="assumpte" ng-required="true"/>
                 <label class="mdl-textfield__label" for="assumpte">Assumpte</label>
                 <span class="mdl-textfield__error">Per favor introduix un assumpte vàlid.</span>
               </div>
-              <div ng-model="$parent.nou_item.comunicacio" class="p-30 p-20--small" ng-controller="TextEditorController">
+              <div ng-model="$parent.nou_item.comunicacio" class="p-30 p-20--small" ng-controller="TextEditorController" style="padding-top:0px;">
                 <textarea ng-wig="$parent.nou_item.comunicacio" class="editor1"></textarea>
               </div>
               <div  class="m-t-20">

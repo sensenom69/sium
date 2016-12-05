@@ -6,6 +6,10 @@
     .controller('NouComunicacio', ['$scope', '$http', '$window', NouComunicacio]);
 
   function NouComunicacio($scope, $http, $window) {
+    $scope.receptors = {};
+    $scope.receptors["agrupacio"] = {};//agrupacio
+    $scope.receptors["familia"] = {};//familia
+    $scope.receptors["instrument"] = {};//instrument
     var tabla = "comunicacio";
     var url = "secciones/"+tabla+"/nou.php";
     var nou_item = [];
@@ -40,6 +44,7 @@
 
     $scope.add = function(){
       $scope.nou_item.id = -1;
+      $scope.nou_item.receptors = $scope.receptors;
       $http.post(url,angular.toJson($scope.nou_item))
         .then(function(resposta){
           $window.location.href = "#/"+tabla+"/llistat";
@@ -49,6 +54,11 @@
     $scope.cancel = function(){
       $window.location.href = "#/"+tabla+"/llistat";
     }
+
+    $scope.apunta = function (opcio, id) {
+      console.log("el json: "+angular.toJson($scope.receptors));
+      console.log("en el apunta agrupacio: "+$scope.receptors[0]+"  familia: "+$scope.receptors[1]+" instrument: "+$scope.receptors[2]);
+    }; 
 
   }
 

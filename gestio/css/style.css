@@ -180,8 +180,21 @@ height:5px;
 
   /*********************/
   .contenedor_scroll{
-    float:left;
     overflow: scroll;
+
+  }
+
+  .contenedor{
+     float:left;
     max-height:213px;
-    margin-left: :50px;
+    margin-left :90px;
+    background-color: rgb(250,250,250);
+    padding:0px 15px 0px 15px;
+  }
+
+
+  ul.llista_opcions_comunicacio{
+    list-style:none;
+    padding-left: 0px;
+
   }

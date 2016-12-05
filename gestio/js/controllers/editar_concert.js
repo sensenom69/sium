@@ -71,7 +71,7 @@
           $scope.selected.push(id);
           $scope.obres.push($scope.item_llistar[tornaPosObra($scope.item_llistar, id)]);
         }
-
+        return false;
     }; 
 
     $scope.showModal = function(ev) {
@@ -94,7 +94,7 @@
           $mdDialog.hide();
         };
 
-        $scope.cancel = function() {
+        $scope.tancar = function() {
           $mdDialog.cancel();
         };
 

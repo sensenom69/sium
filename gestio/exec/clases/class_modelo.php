@@ -142,7 +142,7 @@ class Modelo{
             if(count($id)>1){
                 $identificadors[]=array($camp,$id[1]);
                 //$sql .= "`".$id[1]."`.`nombre` as `".$id[1].".nombre` ,";
-                //$sql .= "`".$id[1]."`.`nom` as `".$id[1]."` ,";//HE llevat aso per que n totes les tables tenen nom
+                $sql .= "`".$id[1]."`.`nom` as `".$id[1]."` ,";//HE llevat aso per que n totes les tables tenen nom
             }
         }
         $sql = substr($sql,0,-1);

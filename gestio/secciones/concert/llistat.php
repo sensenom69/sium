@@ -49,9 +49,10 @@ else{
 		if($i<count($llistat->cargas['concert_obra'])) $obres_json .=', ';
 		$i++;
 	}
+	$text_json .= ', {"obres": ['.$obres_json.']}';
 	
 }
 
-echo '['.$text_json.', {"obres": ['.$obres_json.']}]';
+echo '['.$text_json.']';
 
 ?>

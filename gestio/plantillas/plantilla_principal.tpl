@@ -24,6 +24,7 @@
   <!-- build:css css/demo.min.css -->
   <link href="css/material-lite-demo.css" rel="stylesheet">
   <link href="css/helpers.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
   <!-- endbuild -->
    <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
 
