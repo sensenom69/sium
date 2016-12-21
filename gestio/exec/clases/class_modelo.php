@@ -88,7 +88,7 @@ class Modelo{
         $sql = "DELETE FROM ".$this->tabla." 
                 WHERE 
                     id='".$this->datos['id']."'";
-        //print $sql;
+        print $sql;
         mysql_query($sql);
     }
     //cargador de relaciones    

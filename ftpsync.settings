@@ -4,14 +4,14 @@
 
 	"default": {
 
-		//"host": "softwake.com",
-		//"username": "u58693572",  // or null for anonymous login
-		//"password": "as.us0.5SE",
-		//"path": "/sium/gestio2",
-		"host": "ftp.d1463039-6890.servicios-fusion.es",
-		"username": "f106002",  // or null for anonymous login
-		"password": "reyTfKO#hws3BLhD",
-		"path": "/webspace/httpdocs/siumtv.com/gestio",
+		//"host": "ftp.d1463039-6890.servicios-fusion.es",
+		//"username": "f106002",  // or null for anonymous login
+		//"password": "reyTfKO#hws3BLhD",
+		//"path": "/webspace/httpdocs/siumtv.com/gestio",
+		"host": "softwake.com",
+		"username": "u58693572",  // or null for anonymous login
+		"password": "as.us0.5SE",
+		"path": "/sium/gestio2",
 
 		"upload_on_save": true, // set *false* if you do not want to upload on save!
 

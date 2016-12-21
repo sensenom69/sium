@@ -1,7 +1,7 @@
 <?php
 require_once("exec/comun.php");
-if($_SESSION['logejat']!= true OR $_SESSION['id_permis']<3)
-    header('Location: http://sium.ideas2bits.com');
+if($_SESSION['id_permis']>3)
+    header('Location: http://siumtv.com');
  session_start();
  if(!isset($_SESSION['id_obra_activa'])){
     $_SESSION['id_obra_activa']=0;
@@ -13,9 +13,9 @@ if($_SESSION['logejat']!= true OR $_SESSION['id_permis']<3)
     $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
     $client = new Google_Client();
     // Get your credentials from the console
-    $client->setClientId('310652789266-6qmmuqro4o42h80lcmj0dqjdukd3j2mg.apps.googleusercontent.com');
-    $client->setClientSecret('CAvU0SeI5UmpALpdnVxAmeZ4');
-    $client->setRedirectUri('http://www.sium.ideas2bits.com/gestio2/drive.php');
+    $client->setClientId('627337768348-o2qg6uegqqn2e2otq5ke6klk6g943cjt.apps.googleusercontent.com');
+    $client->setClientSecret('k1HVOliNV7y0Dpy0B577apn3');
+    $client->setRedirectUri('http://www.siumtv.com/gestio/drive.php');
     $client->setScopes(array('https://www.googleapis.com/auth/drive'));
     $authUrl = $client->createAuthUrl();
     if (isset($_GET['code'])) {
